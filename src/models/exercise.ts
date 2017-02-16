@@ -1,0 +1,23 @@
+export interface Exercise {
+    Name: string,
+    BodyPart: string,
+    Days: string,
+    Strength: string,
+    Hold: number,
+    Equipment: string,
+    Deleted: boolean,
+    Video: string,
+    Img: string,
+    TimeStamp: string,
+    AssignedExerciseID: string,
+    PatientID: string,
+    Frequency: number,
+    Reps: number,
+    Sets: number,
+    Description: string,
+    ImgBlobID: string,
+    VideoBlobID: string,
+    Completed: boolean,
+    Status: number,
+    document_id: string
+}

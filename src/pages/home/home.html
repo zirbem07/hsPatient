@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title> 
+    <ion-buttons end>
+      <button ion-button icon-only (click)="toSettings()">
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>  
+  </ion-navbar>
+</ion-header>
+
+<ion-content  class="card-background-page">
+    <ion-card>
+      <ion-card-content>
+        <h2>
+          Next Appointment
+        </h2>
+        <p style="font-size: 30px; font-weight: 300">
+          Tuesday, May 5th
+        </p>
+      </ion-card-content>
+
+      <ion-row no-padding>
+    
+        <ion-col text-right>
+          <button ion-button clear small color="danger" icon-left (click)="updateAptTime()">
+            <ion-icon name='md-clock'></ion-icon>
+              Update
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <!--<ion-row >
+      <ion-col style="padding: 8px 10px">
+        <button class="big-button" ion-button block>Let's Get Started</button>
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col style="padding: 8px 10px">
+        <button class="big-button" ion-button block color="secondary">I Completed My Program</button>
+      </ion-col>
+    </ion-row>-->
+    <ion-card>
+      <div (click)="getAssignedExercises()">
+        <img class="big-button" src="assets/blueExercise.jpeg"  />
+        <div class="card-title">Start Exercises</div>
+        <div class="card-subtitle">{{remainingExercise}} Remaining</div>
+      </div>
+      <ion-row>
+    
+        <ion-col text-right>
+          <button *ngIf="remainingExercise" ion-button clear small color="danger" icon-left (click)="completeAll()">
+            <ion-icon name='checkmark-circle-outline'></ion-icon>
+              Complete All Exercises
+          </button>
+          <button *ngIf="!remainingExercise" ion-button clear small color="primary" icon-left  (click)="completeAll()">
+            <ion-icon name='checkmark-circle'></ion-icon>
+               All Exercises Complete
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+     <ion-card  (click)="toSettings()">
+      <img class="big-button" src="assets/progress.jpeg"/>
+      <div class="card-title">My Progress</div>
+      <div class="card-subtitle">4 Day Streak</div>
+      <ion-row>
+       <ion-col text-right>
+          <button ion-button clear small color="danger" icon-left (click)="completeAll()">
+            <ion-icon name='md-bookmarks'></ion-icon>
+              Update My Log
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <!--<ion-card class="big-button">
+      <img src="../../assets/setting.jpeg"/>
+      <div class="card-title">Settings</div>
+    </ion-card>-->
+</ion-content>

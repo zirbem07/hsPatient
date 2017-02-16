@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Exercises
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col width-33>
+      <img class="exercise-img" [src]="selectedExercise.Img" width="120px" height="120px">
+    </ion-col>
+    <ion-col>
+      <ion-row>
+        <span class="exercise-title">{{selectedExercise.Name}}</span>
+      </ion-row>
+      <ion-row>
+        <span class="exercise-body">{{selectedExercise.Description}}</span>
+      </ion-row>
+    </ion-col>
+
+  </ion-row>
+  <ion-row>
+    <ion-col text-left>
+      <button ion-button clear small color="danger" icon-left (click)="completeExercise(selectedExercise.Name, -1)">
+        <ion-icon name='checkmark-circle-outline'></ion-icon>
+          Severe Pain
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button clear small color="" icon-left (click)="completeExercise(selectedExercise.Name, 0)">
+        <ion-icon name='checkmark-circle-outline'></ion-icon>
+          Mild Pain
+      </button>
+    </ion-col>
+    <ion-col text-right>
+      <button ion-button clear small color="secondary" icon-left (click)="completeExercise(selectedExercise.Name, 1)">
+        <ion-icon name='checkmark-circle-outline'></ion-icon>
+          No Pain
+      </button>
+    </ion-col>
+  </ion-row>
+  <ion-list inset>
+    <ion-list-header>Exercise List</ion-list-header>
+    <ion-item *ngFor="let exercise of exercises" (click)="selectExercise(exercise)">
+      <ion-icon *ngIf="exercise.Completed && exercise.Status == 1" name="checkmark-circle-outline" color="secondary" item-right></ion-icon>
+      <ion-icon *ngIf="exercise.Completed && exercise.Status == 0" name="checkmark-circle-outline" color="primary" item-right></ion-icon>
+      <ion-icon *ngIf="exercise.Completed && exercise.Status == -1" name="checkmark-circle-outline" color="danger" item-right></ion-icon>
+      {{exercise.Name}}
+    </ion-item>
+  </ion-list>
+</ion-content>
