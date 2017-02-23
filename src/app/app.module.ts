@@ -6,6 +6,9 @@ import { ExercisePage } from '../pages/exercise/exercise';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { LogModal } from '../pages/logModal/logModal';
+import { AnalyticsPage } from '../pages/analytics/analytics';
+import { FusionChartsComponent } from 'angular2-fusioncharts';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,10 @@ import { LoginPage } from '../pages/login/login';
     ExercisePage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    LogModal,
+    AnalyticsPage,
+    FusionChartsComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -26,7 +32,10 @@ import { LoginPage } from '../pages/login/login';
     ExercisePage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    LogModal,
+    AnalyticsPage,
+    FusionChartsComponent
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

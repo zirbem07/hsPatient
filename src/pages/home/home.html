@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>Home</ion-title> 
     <ion-buttons end>
-      <button ion-button icon-only (click)="toSettings()">
+      <button color="dark" ion-button icon-only (click)="toSettings()">
         <ion-icon name="settings"></ion-icon>
       </button>
     </ion-buttons>  
@@ -16,7 +16,7 @@
           Next Appointment
         </h2>
         <p style="font-size: 30px; font-weight: 300">
-          Tuesday, May 5th
+          {{nextApt}}
         </p>
       </ion-card-content>
 
@@ -61,13 +61,15 @@
       </ion-row>
     </ion-card>
 
-     <ion-card  (click)="toSettings()">
-      <img class="big-button" src="assets/progress.jpeg"/>
-      <div class="card-title">My Progress</div>
-      <div class="card-subtitle">4 Day Streak</div>
+     <ion-card  >
+       <div (click)="toAnalytics()">
+        <img class="big-button" src="assets/progress.jpeg"/>
+        <div class="card-title">My Progress</div>
+        <div class="card-subtitle">4 Day Streak</div>
+      </div>
       <ion-row>
        <ion-col text-right>
-          <button ion-button clear small color="danger" icon-left (click)="completeAll()">
+          <button ion-button clear small color="danger" icon-left (click)="presentLogModal()">
             <ion-icon name='md-bookmarks'></ion-icon>
               Update My Log
           </button>

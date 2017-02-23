@@ -9,7 +9,10 @@
 <ion-content>
   <ion-row>
     <ion-col width-33>
-      <img class="exercise-img" [src]="selectedExercise.Img" width="120px" height="120px">
+      <!--<img class="exercise-img" [src]="selectedExercise.Img" width="120px" height="120px">-->
+      <video controls="controls" preload="auto" [src]="selectedExercise.Video" class="exercise-img" poster="{{selectedExercise.Img}}" width="120px" height="120px">
+
+      </video>
     </ion-col>
     <ion-col>
       <ion-row>

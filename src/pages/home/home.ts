@@ -1,23 +1,28 @@
 import { Component } from '@angular/core';
 
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ModalController } from 'ionic-angular';
 import { SessionService } from '../../services/sessionService';
 import { ExerciseService } from '../../services/exerciseService';
 
 import { SettingsPage } from '../settings/settings'
 import { ExercisePage } from '../exercise/exercise'
+import { LogModal } from '../logModal/logModal'
+import { AnalyticsPage } from '../analytics/analytics' 
 import 'datejs'
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
+
 export class HomePage {
   DateJs: IDateJSStatic = <any>Date;
   remainingExercise: number;
+  nextApt: string; 
   patient: any;
   today: any;
-  constructor(public navCtrl: NavController, private session: SessionService, private exercise: ExerciseService, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, private session: SessionService, private exercise: ExerciseService, private alertCtrl: AlertController, public modalCtrl: ModalController) {
+    this.nextApt =  window.localStorage.getItem("nextApt") || "Wednesday, Mar 1st"
     this.patient = this.session.patient;
     this.today = this.DateJs.today().toString('M-dd-yyyy');
     this.getPatientLog()  
@@ -64,6 +69,15 @@ export class HomePage {
     }
   }
 
+  presentLogModal() {
+   let logModal = this.modalCtrl.create(LogModal);
+   logModal.present();
+  }
+
+  toAnalytics() {
+    this.navCtrl.push(AnalyticsPage);
+  }
+
   updateAptTime() {
     let alert = this.alertCtrl.create({
       title: 'Appointment Time',
@@ -72,7 +86,7 @@ export class HomePage {
           name: 'date',
           placeholder: 'Date',
           type: 'datetime-local',
-          value: '2017-02-09T17:03:44.457'
+          value: Date.now().toString(),
         }
       ],
       buttons: [
@@ -87,7 +101,8 @@ export class HomePage {
           text: 'Update',
           handler: data => {
             if (data.date) {
-              console.log(data.date);
+               this.nextApt = this.DateJs.parse(data.date).toString('dddd, MMM dS');
+               window.localStorage.setItem("nextApt", this.nextApt)
               // logged in!
             } else {
               // invalid login

@@ -51,6 +51,11 @@ export class ExercisePage {
         .then(imgData => {
           item.Img = imgData._body;
         })
+
+        this.exercise.getBlobVideo(this.patient.access_token, this.patient.AccountType, item.VideoBlobID)
+        .then(vidData => {
+          item.Video = vidData._body;
+        })
       }   
     }
   }

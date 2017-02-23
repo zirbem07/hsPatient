@@ -62,6 +62,17 @@ export class ExerciseService {
             .toPromise();
     }
 
+    getBlobVideo(token: string, accountType: string, blobID: string): Promise<any>{
+        const headers = new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + btoa(token + ':')
+        })
+        const url = 'https://api.truevault.com/v1/vaults/' + VaultID[accountType].PatientVideo + '/blobs/'+ blobID;
+        return this.http
+            .get(url, {headers: headers})
+            .toPromise();
+    }
+
     private formatData(data){
         let returnData = '';
         let count = 0;

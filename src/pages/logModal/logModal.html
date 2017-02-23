@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+        <button ion-button icon-only (click)=close(); color="dark">
+            <ion-icon name="ios-close"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="log-modal" padding>
+      <img src="./assets/teleLogo.jpg" style="margin: auto; display: block">
+      <ion-list style="margin-top: 25px" no-lines>
+        <ion-list-header>
+          How are you feeling?
+        </ion-list-header>
+        <ion-item>
+          <ion-range [(ngModel)]="feeling" step="1" snaps="true" min="1" max="10">
+            <ion-icon range-left  name="sad-outline"></ion-icon>
+            <ion-icon range-right name="happy-outline"></ion-icon>
+          </ion-range>
+        </ion-item>
+       <ion-list-header>
+          Rate your pain on a scale from 1 to 10.
+        </ion-list-header>
+        <ion-item>
+          <ion-range [(ngModel)]="pain" step="1" snaps="true" min="1" max="10">
+            <ion-icon range-left  name="sad-outline"></ion-icon>
+            <ion-icon range-right name="happy-outline"></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label *ngIf="gettingBetter">I am getting better.</ion-label>
+          <ion-label *ngIf="!gettingBetter">I am NOT getting better.</ion-label>
+
+          <ion-toggle [(ngModel)]="gettingBetter" checked="true"></ion-toggle>
+        </ion-item>
+      </ion-list>
+      <button ion-button block (click)="close()">Update My Log</button>
+      
+</ion-content>

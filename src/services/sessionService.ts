@@ -28,7 +28,7 @@ export class SessionService {
           'Authorization': 'Basic ' + btoa(access_token + ':') 
         })
         return this.http
-            .post(url, {headers: headers})
+            .post(url, {}, {headers: headers})
             .toPromise();
     }
 

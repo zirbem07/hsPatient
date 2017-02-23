@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+  </ion-navbar>
+</ion-header>
+<ion-content class="card-background-page">
+    <ion-card (click)="renderChart()">
+      <ion-card-content>
+        <ion-row no-padding>
+            <ion-col width-50>
+                <p class="score">4</p>
+                <p class="">Day Streak</p>
+            </ion-col>
+            <ion-col width-50>
+                <p class="score">76%</p>
+                <p class="">Compliance Rating</p>
+            </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+    <div id="chart-container"></div>
+<fusioncharts
+    width="100%"
+    height="350"
+    type="mscombidy2d"
+    dataFormat="JSON"
+    dataSource={{datasource}}
+    
+></fusioncharts>
+      
+</ion-content>

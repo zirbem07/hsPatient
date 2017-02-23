@@ -1,7 +1,7 @@
 <ion-content padding>
-    <img src="./assets/BlueBlackLogo.png" style="margin: 22% 0">
+    <img src="./assets/teleLogo.jpg" style="margin: auto; display: block">
     <form [formGroup]="loginForm" (submit)="login($event)">
-        <ion-list>
+        <ion-list style="margin-top: 25px">
             <ion-item style="border: 0">
                 <ion-label floating>Email</ion-label>
                 <ion-input [formControl]="loginForm.controls['email']" type="email"></ion-input>
