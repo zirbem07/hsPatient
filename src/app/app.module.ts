@@ -12,6 +12,7 @@ import { PrivacyPolicy } from '../pages/privacyPolicy/privacyPolicy';
 import { FusionChartsComponent } from 'angular2-fusioncharts';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { ForgotPasswordPage } from '../pages/forgotPassword/forgotPassword';
+import { TimerComponent } from '../pages/timer/timer';
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -44,7 +45,8 @@ const cloudSettings: CloudSettings = {
     AnalyticsPage,
     FusionChartsComponent,
     PrivacyPolicy,
-    ForgotPasswordPage
+    ForgotPasswordPage,
+    TimerComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -62,7 +64,8 @@ const cloudSettings: CloudSettings = {
     AnalyticsPage,
     FusionChartsComponent,
     PrivacyPolicy,
-    ForgotPasswordPage
+    ForgotPasswordPage,
+    TimerComponent
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

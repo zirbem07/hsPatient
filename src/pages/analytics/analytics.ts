@@ -83,15 +83,7 @@ export class AnalyticsPage {
             "dataset": [
                 {
                     "seriesName": "Compliance %",
-                    "data": [
-                        { "value" : "100" },
-                        { "value" : "80" },
-                        { "value" : "40" },
-                        { "value" : "70" },
-                        { "value" : "20" },
-                        { "value" : "100" },
-                        { "value" : "80" }
-                    ]
+                    "data": this.compliance
                 }, 
                 // {
                 //     "seriesName": "Feeling",
@@ -112,15 +104,7 @@ export class AnalyticsPage {
                     "parentYAxis": "S",
                     "renderAs": "line",
                     "showValues": "0",
-                    "data": [
-                        { "value" : "4" },
-                        { "value" : "4" },
-                        { "value" : "2" },
-                        { "value" : "5" },
-                        { "value" : "3" },
-                        { "value" : "1" },
-                        { "value" : "1" }
-                    ]
+                    "data": this.pain
                 }
             ]
       })

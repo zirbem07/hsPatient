@@ -117,6 +117,19 @@ export class SessionService {
             
     }
 
+    saveDeviceToken(token: string, accountType: string, userID: string, deviceToken: string){
+        const url = 'https://api.truevault.com/v1/vaults/'+ VaultID[accountType].PatientVault +'/documents/' + userID
+        const headers = new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + btoa(token + ':')
+        })
+
+        this.patient.attributes.deviceToken = deviceToken
+        return this.http
+            .put(url, this.formatData({document: btoa(JSON.stringify(this.patient.attributes)), schema_id: VaultID[accountType].PatientSchema}), {headers: headers})
+            .toPromise()
+    }
+
     forgotPassword(email: string): Promise<any> {
         const headers = new Headers({
             'Content-Type': 'application/x-www-form-urlencoded'

@@ -12,5 +12,6 @@ export interface User {
     LastActive: string,
     Activated: boolean,
     PatientLogID: string,
+    deviceToken: string,
     document_id: string
 }

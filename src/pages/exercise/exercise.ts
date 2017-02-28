@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 import { ExerciseService }  from '../../services/exerciseService';
 import { SessionService } from '../../services/sessionService';
 import { Exercise }  from '../../models/exercise';
+import { TimerComponent } from '../timer/timer'
 import 'datejs';
 
 
@@ -16,7 +17,10 @@ export class ExercisePage {
   private selectedExercise: Exercise;
   private patient: any;
   private DateJs: IDateJSStatic =  <any>Date;
-  private today
+  private today;
+  private timerActive: boolean = false;
+
+  @ViewChild(TimerComponent) timer: TimerComponent;
 
   constructor(public navCtrl: NavController, private session: SessionService, private exercise: ExerciseService) {
     this.exercises = exercise.exercises;
@@ -77,7 +81,12 @@ export class ExercisePage {
   }
 
   selectExercise(exercise) {
+    this.timerActive = false;
     this.selectedExercise = exercise;
+  }
+
+  toggleTimer() {
+    this.timerActive = !this.timerActive;
   }
 
 }

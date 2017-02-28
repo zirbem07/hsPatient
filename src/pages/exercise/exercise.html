@@ -34,11 +34,12 @@
       <p class="exerciseInfo-desc">Reps</p>
     </ion-col>
     <ion-col >
-       <button style="margin: auto; display: block" ion-button clear color="primary" icon-only>
+       <button style="margin: auto; display: block" ion-button clear color="primary" icon-only (click)="toggleTimer()">
         <ion-icon name='timer'></ion-icon>
       </button>
     </ion-col>
   </ion-row>
+  <timer *ngIf="timerActive" #timer [timeInSeconds]="selectedExercise.Hold"></timer>
   <ion-row>
     <ion-col text-left>
       <button ion-button clear small color="danger" icon-left (click)="completeExercise(selectedExercise.Name, -1)">
