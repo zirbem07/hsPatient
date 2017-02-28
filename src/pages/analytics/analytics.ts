@@ -11,8 +11,20 @@ import 'datejs';
   templateUrl: 'analytics.html',
 })
 export class AnalyticsPage { 
-    datasource: any;
+  
+  DateJs: IDateJSStatic = <any>Date;
+  datasource: any;
+  today: string;
+  pain: [any] = [0,0,0,0,0,0,0]
+  compliance: [any] = [0,0,0,0,0,0,0]
+  totalComplete: number;
+  totalAssigned: number;
+  complianceScore: number;
+  
   constructor(public navCtrl: NavController, private session: SessionService) {
+     
+      this.today = this.DateJs.today().toString('M-dd-yyyy');
+      this.readLog()
       this.datasource = JSON.stringify({
             "chart": {
                 "caption": "Compliance and Pain",
@@ -114,81 +126,19 @@ export class AnalyticsPage {
       })
   }
 
-  ionViewDidLoad() {
-    // this.renderChart();
+  readLog() {
+    let i = 0;
+    this.totalAssigned = 0;
+    this.totalComplete = 0;
+    for(i = 0; i < 7; i++){
+        this.pain[i] = {"value": this.session.patient.patientLog[this.DateJs.today().addDays(-i).toString('M-dd-yyyy')].pain || "5"};
+        var complete = this.session.patient.patientLog[this.DateJs.today().addDays(-i).toString('M-dd-yyyy')].completed;
+        this.totalComplete += complete;
+        var assigned = this.session.patient.patientLog[this.DateJs.today().addDays(-i).toString('M-dd-yyyy')].assigned;
+        this.totalAssigned += assigned;
+        this.compliance[i] = {"value": complete / assigned * 100}
+    }
+    this.complianceScore = Math.floor(this.totalComplete / this.totalAssigned * 100);
   }
-
-//   renderChart(){
-//        var revenueChart = new chart({
-//         type: 'line',
-//         renderAt: 'chart-container',
-//         width: '400',
-//         height: '300',
-//         dataFormat: 'json',
-//         dataSource: {
-//             "chart": {
-//                 "caption": "Monthly revenue for last year",
-//                 "subCaption": "Harry's SuperMart",
-//                 "xAxisName": "Month",
-//                 "yAxisName": "Revenues (In USD)",
-//                 "numberPrefix": "$",
-//                 "theme": "fint"
-//             },
-//             "data": [
-//                 {
-//                     "label": "Jan",
-//                     "value": "420000"
-//                 },
-//                 {
-//                     "label": "Feb",
-//                     "value": "810000"
-//                 },
-//                 {
-//                     "label": "Mar",
-//                     "value": "720000"
-//                 },
-//                 {
-//                     "label": "Apr",
-//                     "value": "550000"
-//                 },
-//                 {
-//                     "label": "May",
-//                     "value": "910000"
-//                 },
-//                 {
-//                     "label": "Jun",
-//                     "value": "510000"
-//                 },
-//                 {
-//                     "label": "Jul",
-//                     "value": "680000"
-//                 },
-//                 {
-//                     "label": "Aug",
-//                     "value": "620000"
-//                 },
-//                 {
-//                     "label": "Sep",
-//                     "value": "610000"
-//                 },
-//                 {
-//                     "label": "Oct",
-//                     "value": "490000"
-//                 },
-//                 {
-//                     "label": "Nov",
-//                     "value": "900000"
-//                 },
-//                 {
-//                     "label": "Dec",
-//                     "value": "730000"
-//                 }
-//             ]
-
-//         }
-//     });
-
-//     revenueChart.render();
-//   }
 
 }

@@ -25,6 +25,21 @@
 
   </ion-row>
   <ion-row>
+    <ion-col >
+      <p class="exerciseInfo">{{selectedExercise.Sets}}</p>
+      <p class="exerciseInfo-desc" note>Sets</p>
+    </ion-col>
+    <ion-col >
+      <p class="exerciseInfo">{{selectedExercise.Reps}}</p>
+      <p class="exerciseInfo-desc">Reps</p>
+    </ion-col>
+    <ion-col >
+       <button style="margin: auto; display: block" ion-button clear color="primary" icon-only>
+        <ion-icon name='timer'></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
     <ion-col text-left>
       <button ion-button clear small color="danger" icon-left (click)="completeExercise(selectedExercise.Name, -1)">
         <ion-icon name='checkmark-circle-outline'></ion-icon>

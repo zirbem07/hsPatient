@@ -21,11 +21,14 @@ export class HomePage {
   nextApt: string; 
   patient: any;
   today: any;
+  streak: any;
   constructor(public navCtrl: NavController, private session: SessionService, private exercise: ExerciseService, private alertCtrl: AlertController, public modalCtrl: ModalController) {
-    this.nextApt =  window.localStorage.getItem("nextApt") || "Wednesday, Mar 1st"
+    this.streak = window.localStorage.getItem("streak") || 1;
+    this.nextApt =  window.localStorage.getItem("nextApt") || "Wed, Mar 1st"
     this.patient = this.session.patient;
     this.today = this.DateJs.today().toString('M-dd-yyyy');
-    this.getPatientLog()  
+    this.getPatientLog()
+    this.updateActivity()
   
   }
 
@@ -45,7 +48,21 @@ export class HomePage {
 
   }
 
+  updateActivity() {
+    if(this.session.patient.attributes.LastActive === this.DateJs.today().addDays(-1).toString('M-dd-yyyy')){
+      this.streak = parseInt(this.streak) + 1;
+      window.localStorage.setItem("steak", this.streak + "");
+    } else {
+      window.localStorage.setItem("streak", "1");
+    }
+    this.session.patient.attributes.LastActive = this.today;
+    this.session.updateLastActive(this.patient.access_token, this.patient.AccountType, this.patient.attributes.document_id);
+  }
+
   completeAll() {
+     if(!this.session.patient.patientLog[this.today].logCompleted ){
+       this.presentLogModal();
+     }
      this.session.patient.patientLog[this.today].completed = this.patient.patientLog[this.today].assigned;
      for (let exercise of this.session.patient.patientLog[this.today].exercises) {
        exercise.completed = true;
@@ -71,6 +88,18 @@ export class HomePage {
 
   presentLogModal() {
    let logModal = this.modalCtrl.create(LogModal);
+   logModal.onDidDismiss(data => {
+     if(data){
+      this.session.patient.patientLog[this.today].feeling = data.feeling;
+      this.session.patient.patientLog[this.today].pain = 10 - data.pain + 1;
+      this.session.patient.patientLog[this.today].gettingBetter = data.gettingBetter;
+      this.session.patient.patientLog[this.today].logCompleted = true;
+      this.session.updatePatientLog(this.session.patient.access_token, this.session.patient.AccountType, this.session.patient.attributes.PatientLogID)
+      .then(data => {
+
+      });
+     }
+   });
    logModal.present();
   }
 
@@ -101,7 +130,7 @@ export class HomePage {
           text: 'Update',
           handler: data => {
             if (data.date) {
-               this.nextApt = this.DateJs.parse(data.date).toString('dddd, MMM dS');
+               this.nextApt = this.DateJs.parse(data.date).toString('ddd, MMM dS');
                window.localStorage.setItem("nextApt", this.nextApt)
               // logged in!
             } else {

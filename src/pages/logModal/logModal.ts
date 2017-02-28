@@ -21,4 +21,9 @@ export class LogModal {
    this.viewCtrl.dismiss();
  }
 
+ submitLog() {
+   let data = { 'feeling': this.feeling, 'pain': this.pain, 'gettingBetter': this.gettingBetter };
+   this.viewCtrl.dismiss(data);
+ }
+
 }

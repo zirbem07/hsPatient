@@ -8,7 +8,29 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { LogModal } from '../pages/logModal/logModal';
 import { AnalyticsPage } from '../pages/analytics/analytics';
+import { PrivacyPolicy } from '../pages/privacyPolicy/privacyPolicy';
 import { FusionChartsComponent } from 'angular2-fusioncharts';
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+
+
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': '9ec1b6bf'
+  },
+  'push': {
+    'sender_id': '383934093345',
+    'pluginConfig': {
+      'ios': {
+        'badge': false,
+        'sound': true
+      },
+      'android': {
+        'iconColor': '#343434'
+      }
+    }
+  }
+
+};
 
 @NgModule({
   declarations: [
@@ -20,10 +42,12 @@ import { FusionChartsComponent } from 'angular2-fusioncharts';
     LoginPage,
     LogModal,
     AnalyticsPage,
-    FusionChartsComponent
+    FusionChartsComponent,
+    PrivacyPolicy
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    CloudModule.forRoot(cloudSettings)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -35,7 +59,8 @@ import { FusionChartsComponent } from 'angular2-fusioncharts';
     LoginPage,
     LogModal,
     AnalyticsPage,
-    FusionChartsComponent
+    FusionChartsComponent,
+    PrivacyPolicy
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

@@ -5,6 +5,8 @@ import { NavController } from 'ionic-angular';
 import { SessionService } from '../../services/sessionService';
 
 import { HomePage } from '../home/home';
+import { Push, PushToken } from '@ionic/cloud-angular';
+
 
 @Component({
   templateUrl: 'login.html',
@@ -12,9 +14,10 @@ import { HomePage } from '../home/home';
 
 
 export class LoginPage {
-  loginForm: FormGroup;    
+  loginForm: FormGroup; 
+     
 
-  constructor(public navCtrl: NavController, fb: FormBuilder, private session: SessionService) {
+  constructor(public navCtrl: NavController, fb: FormBuilder, private session: SessionService, public push: Push) {
     this.loginForm = fb.group({
       email: ["maxwell.zirbel@hchep.com", Validators.required],
       password: ["test", Validators.required]
@@ -32,7 +35,14 @@ export class LoginPage {
             .then(data => {
                 var patient = this.session.patient
                 this.session.getUserAttributes(patient.access_token, patient.AccountType, patient.user_id)
-                .then(attr =>  this.navCtrl.setRoot(HomePage))
+                .then(attr =>  {
+                  // this.push.register().then((t: PushToken) => {
+                  //   return this.push.saveToken(t, 'ignore_user');
+                  // }).then((t: PushToken) => {
+                  //   console.log('Token saved:', t.token);
+                  // });
+                  this.navCtrl.setRoot(HomePage)
+                })
             })
         });
 
