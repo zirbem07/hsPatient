@@ -130,7 +130,7 @@ export class HomePage {
           text: 'Update',
           handler: data => {
             if (data.date) {
-               this.nextApt = this.DateJs.parse(data.date).toString('ddd, MMM dS');
+               this.nextApt = this.DateJs.parse(data.date).toString('dddd, MMM dS');
                window.localStorage.setItem("nextApt", this.nextApt)
               // logged in!
             } else {

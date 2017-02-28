@@ -15,7 +15,7 @@
         <h2>
           Next Appointment
         </h2>
-        <p style="font-size: 30px; font-weight: 300">
+        <p style="font-size: 24px; font-weight: 300">
           {{nextApt}}
         </p>
       </ion-card-content>
@@ -41,11 +41,11 @@
       </ion-col>
     </ion-row>-->
     <ion-card>
-      <div (click)="getAssignedExercises()">
+      <button style="padding: 0px" (click)="getAssignedExercises()">
         <img class="big-button" src="assets/blueExercise.jpeg"  />
         <div class="card-title">Start Exercises</div>
         <div class="card-subtitle">{{remainingExercise}} Remaining</div>
-      </div>
+      </button>
       <ion-row>
     
         <ion-col text-right>
@@ -62,11 +62,11 @@
     </ion-card>
 
      <ion-card  >
-       <div (click)="toAnalytics()">
+       <button style="padding: 0px" (click)="toAnalytics()">
         <img class="big-button" src="assets/progress.jpeg"/>
         <div class="card-title">My Progress</div>
         <div class="card-subtitle">{{streak}} Day Streak</div>
-      </div>
+      </button>
       <ion-row>
        <ion-col text-right>
           <button ion-button clear small color="danger" icon-left (click)="presentLogModal()">
