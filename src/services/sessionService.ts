@@ -117,6 +117,29 @@ export class SessionService {
             
     }
 
+    forgotPassword(email: string): Promise<any> {
+        const headers = new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded'
+        })
+        let text = "";
+        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for( let i=0; i < 10; i++ ) {
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+
+        return this.http
+            .post("https://healthconnection.io/testAPI/web/index.php/api/v1/passwordReset", {Email: email, Code: text})
+            .toPromise()
+            .then(data => {
+                this.http
+                    .post('https://healthconnection.io/hcMailgun/sendPasswordResetEmail.php', 
+                            this.formatData({email: email, link: 'https://healthconnection.io/hcPassword/index.html#/resetPasswordCode/' + text}),
+                            {headers: headers})
+                    .toPromise()
+            })
+    }
+
     private handleError(error){
 
     }

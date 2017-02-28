@@ -5,6 +5,7 @@ import { NavController } from 'ionic-angular';
 import { SessionService } from '../../services/sessionService';
 
 import { HomePage } from '../home/home';
+import { ForgotPasswordPage } from '../forgotPassword/forgotPassword'
 import { Push, PushToken } from '@ionic/cloud-angular';
 
 
@@ -47,6 +48,10 @@ export class LoginPage {
         });
 
     } 
+  }
+
+  forgotPassword() {
+    this.navCtrl.push(ForgotPasswordPage)
   }
 
 }
