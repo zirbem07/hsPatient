@@ -35,7 +35,7 @@ export class ExercisePage {
     var d = new Date();
     var log = this.session.patient.patientLog[this.today].exercises;
     this.exercises.forEach((item, index) => { 
-      if(item.Days.split(',')[d.getDay()] === "0"){
+      if(typeof item.Days === 'string' && item.Days.split(',')[d.getDay()] === "0"){
           this.exercises.splice(1, index);
       }
       for (let logItem of log){

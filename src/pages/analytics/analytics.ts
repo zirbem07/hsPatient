@@ -20,10 +20,12 @@ export class AnalyticsPage {
   totalComplete: number;
   totalAssigned: number;
   complianceScore: number;
+  streak: any;
   
   constructor(public navCtrl: NavController, private session: SessionService) {
      
       this.today = this.DateJs.today().toString('M-dd-yyyy');
+      this.streak = window.localStorage.getItem("streak") || 1;
       this.readLog()
       this.datasource = JSON.stringify({
             "chart": {
@@ -115,12 +117,15 @@ export class AnalyticsPage {
     this.totalAssigned = 0;
     this.totalComplete = 0;
     for(i = 0; i < 7; i++){
-        this.pain[i] = {"value": this.session.patient.patientLog[this.DateJs.today().addDays(-i).toString('M-dd-yyyy')].pain || "5"};
-        var complete = this.session.patient.patientLog[this.DateJs.today().addDays(-i).toString('M-dd-yyyy')].completed;
-        this.totalComplete += complete;
-        var assigned = this.session.patient.patientLog[this.DateJs.today().addDays(-i).toString('M-dd-yyyy')].assigned;
-        this.totalAssigned += assigned;
-        this.compliance[i] = {"value": complete / assigned * 100}
+        if(this.session.patient.patientLog[this.DateJs.today().addDays(-i).toString('M-dd-yyyy')]){
+            this.pain[i] = {"value": this.session.patient.patientLog[this.DateJs.today().addDays(-i).toString('M-dd-yyyy')].pain || "5"};
+            var complete = this.session.patient.patientLog[this.DateJs.today().addDays(-i).toString('M-dd-yyyy')].completed;
+            this.totalComplete += complete;
+            var assigned = this.session.patient.patientLog[this.DateJs.today().addDays(-i).toString('M-dd-yyyy')].assigned;
+            this.totalAssigned += assigned;
+            this.compliance[i] = {"value": complete / assigned * 100}
+        }
+        
     }
     this.complianceScore = Math.floor(this.totalComplete / this.totalAssigned * 100);
   }

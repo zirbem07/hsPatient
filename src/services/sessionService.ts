@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import { VaultID } from '../app/vaultIDs';
 import { Patient } from '../app/patient';
 
+
 @Injectable()
 export class SessionService {
     private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
@@ -154,7 +155,7 @@ export class SessionService {
     }
 
     private handleError(error){
-
+        alert("Error: incorrect username or password");            
     }
     private formatData(data){
         let returnData = '';

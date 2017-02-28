@@ -16,11 +16,14 @@ import { Push, PushToken } from '@ionic/cloud-angular';
 
 export class LoginPage {
   loginForm: FormGroup; 
+  email: string;
      
 
   constructor(public navCtrl: NavController, fb: FormBuilder, private session: SessionService, public push: Push) {
+    this.email = window.localStorage.getItem("username") || "";
+    
     this.loginForm = fb.group({
-      email: ["", Validators.required],
+      email: [this.email, Validators.required],
       password: ["", Validators.required]
     });
   }
@@ -32,6 +35,7 @@ export class LoginPage {
     if(this.loginForm.controls["email"] && this.loginForm.controls["password"]){
         this.session.login(this.loginForm.controls["email"].value, this.loginForm.controls["password"].value)
         .then(user => {
+
             this.session.getUserInfo(this.session.patient.id, this.session.patient.access_token)
             .then(data => {
                 var patient = this.session.patient
@@ -49,8 +53,7 @@ export class LoginPage {
                   });                  
                 })
             })
-        });
-
+        })
     } 
   }
 
