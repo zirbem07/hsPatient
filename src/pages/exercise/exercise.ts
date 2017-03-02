@@ -19,6 +19,29 @@ export class ExercisePage {
   private DateJs: IDateJSStatic =  <any>Date;
   private today;
   private timerActive: boolean = false;
+  private noExercises: Exercise = {
+    Name: "No Exercises",
+    BodyPart: "",
+    Days: "1,1,1,1,1,1,1,1,1,1,1",
+    Strength: "",
+    Hold: 10,
+    Equipment: "",
+    Deleted: false,
+    Video: "",
+    Img: "",
+    TimeStamp: "",
+    AssignedExerciseID: "",
+    PatientID: "",
+    Frequency: 0,
+    Reps: 0,
+    Sets: 0,
+    Description: "You have no exercises assigned for today.",
+    ImgBlobID: "",
+    VideoBlobID: "",
+    Completed: true,
+    Status: 1,
+    document_id: ""
+}
 
   @ViewChild(TimerComponent) timer: TimerComponent;
 
@@ -28,7 +51,7 @@ export class ExercisePage {
     this.today = this.DateJs.today().toString('M-dd-yyyy')
     this.checkCompleted();
     this.getBlobImgs()
-    this.selectedExercise = this.exercises[0];
+    this.selectedExercise = this.exercises[0] || this.noExercises;
   }
 
   checkCompleted(){

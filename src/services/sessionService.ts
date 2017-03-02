@@ -70,6 +70,7 @@ export class SessionService {
             .post(url, this.formatData({search_option: btoa(queryParams)}), {headers: headers})
             .toPromise()
             .then(res => {
+                console.log(res.json().data)
                 var data = JSON.parse(atob(res.json().data.documents[0].document));
                 data.document_id = res.json().data.documents[0].document_id;
                 this.patient.attributes = data;

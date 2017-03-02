@@ -10,7 +10,7 @@
   <ion-row>
     <ion-col width-33>
       <!--<img class="exercise-img" [src]="selectedExercise.Img" width="120px" height="120px">-->
-      <video controls="controls" preload="auto" [src]="selectedExercise.Video" class="exercise-img" poster="{{selectedExercise.Img}}" width="120px" height="120px">
+      <video allowfullscreen controls="controls" preload="auto" [src]="selectedExercise.Video" class="exercise-img" poster="{{selectedExercise.Img}}" width="120px" height="120px">
 
       </video>
     </ion-col>
@@ -33,7 +33,7 @@
       <p class="exerciseInfo">{{selectedExercise.Reps}}</p>
       <p class="exerciseInfo-desc">Reps</p>
     </ion-col>
-    <ion-col >
+    <ion-col *ngIf="selectedExercise.Hold">
        <button style="margin: auto; display: block" ion-button clear color="primary" icon-only (click)="toggleTimer()">
         <ion-icon name='timer'></ion-icon>
       </button>

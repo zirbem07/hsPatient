@@ -24,7 +24,7 @@ export class HomePage {
   streak: any;
   constructor(public navCtrl: NavController, private session: SessionService, private exercise: ExerciseService, private alertCtrl: AlertController, public modalCtrl: ModalController) {
     this.streak = window.localStorage.getItem("streak") || 1;
-    this.nextApt =  window.localStorage.getItem("nextApt") || "Wed, Mar 1st"
+    this.nextApt =  window.localStorage.getItem("nextApt") || "Not Set"
     this.patient = this.session.patient;
     this.today = this.DateJs.today().toString('M-dd-yyyy');
     this.getPatientLog()
@@ -42,8 +42,19 @@ export class HomePage {
     this.session.getPatientLog(this.patient.access_token, this.patient.AccountType, this.patient.attributes.PatientLogID)
     .then(data => {
       this.session.patient.patientLog = JSON.parse(atob(data._body))
-      var today = JSON.parse(atob(data._body))[this.today]
+      if(!this.session.patient.patientLog[this.today]){
+         this.session.patient.patientLog[this.today] =
+         {
+            "completed": 0,
+            "assigned": 0,
+            "exercises": []
+        }
+        this.session.updatePatientLog(this.patient.access_token, this.patient.AccountType, this.patient.attributes.PatientLogID)
+      }
+      var today = this.session.patient.patientLog[this.today]
       this.remainingExercise = (today.assigned - today.completed)
+      
+      
     });
 
   }
@@ -132,9 +143,7 @@ export class HomePage {
             if (data.date) {
                this.nextApt = this.DateJs.parse(data.date).toString('dddd, MMM dS');
                window.localStorage.setItem("nextApt", this.nextApt)
-              // logged in!
             } else {
-              // invalid login
               return false;
             }
           }

@@ -17,6 +17,15 @@ export class AnalyticsPage {
   today: string;
   pain: [any] = [0,0,0,0,0,0,0]
   compliance: [any] = [0,0,0,0,0,0,0]
+  days: [any] = [
+                    { "label": "Mon" }, 
+                    { "label": "Tues" }, 
+                    { "label": "Wed" }, 
+                    { "label": "Thur" }, 
+                    { "label": "Fri" }, 
+                    { "label": "Sat" }, 
+                    { "label": "Sun" }
+                ]
   totalComplete: number;
   totalAssigned: number;
   complianceScore: number;
@@ -71,15 +80,7 @@ export class AnalyticsPage {
                 "legendItemFontColor" : "#666666"
             },
             "categories": [{
-                "category": [
-                    { "label": "Mon" }, 
-                    { "label": "Tues" }, 
-                    { "label": "Wed" }, 
-                    { "label": "Thur" }, 
-                    { "label": "Fri" }, 
-                    { "label": "Sat" }, 
-                    { "label": "Sun" }
-                ]
+                "category": this.days
             }
                           ],
             "dataset": [
@@ -124,6 +125,7 @@ export class AnalyticsPage {
             var assigned = this.session.patient.patientLog[this.DateJs.today().addDays(-i).toString('M-dd-yyyy')].assigned;
             this.totalAssigned += assigned;
             this.compliance[i] = {"value": complete / assigned * 100}
+            this.days[i] = {"label": this.DateJs.today().addDays(-i).toString('ddd')}
         }
         
     }

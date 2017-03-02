@@ -35,7 +35,7 @@ export class LoginPage {
     if(this.loginForm.controls["email"] && this.loginForm.controls["password"]){
         this.session.login(this.loginForm.controls["email"].value, this.loginForm.controls["password"].value)
         .then(user => {
-
+            window.localStorage.setItem("username", this.loginForm.controls["email"].value)
             this.session.getUserInfo(this.session.patient.id, this.session.patient.access_token)
             .then(data => {
                 var patient = this.session.patient
