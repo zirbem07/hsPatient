@@ -33,13 +33,12 @@
       <p class="exerciseInfo">{{selectedExercise.Reps}}</p>
       <p class="exerciseInfo-desc">Reps</p>
     </ion-col>
-    <ion-col *ngIf="selectedExercise.Hold">
-       <button style="margin: auto; display: block" ion-button clear color="primary" icon-only (click)="toggleTimer()">
-        <ion-icon name='timer'></ion-icon>
-      </button>
+     <ion-col >
+      <p class="exerciseInfo">{{selectedExercise.Frequency}}</p>
+      <p class="exerciseInfo-desc">Per Day</p>
     </ion-col>
   </ion-row>
-  <timer *ngIf="timerActive" #timer [timeInSeconds]="selectedExercise.Hold"></timer>
+  <timer #timer [timeInSeconds]="selectedExercise.Hold"></timer>
   <ion-row>
     <ion-col text-left>
       <button ion-button clear small color="danger" icon-left (click)="completeExercise(selectedExercise.Name, -1)">

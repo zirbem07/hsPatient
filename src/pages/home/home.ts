@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { NavController, AlertController, ModalController } from 'ionic-angular';
+import { Push, PushToken } from '@ionic/cloud-angular';
 import { SessionService } from '../../services/sessionService';
 import { ExerciseService } from '../../services/exerciseService';
 
@@ -22,14 +23,16 @@ export class HomePage {
   patient: any;
   today: any;
   streak: any;
-  constructor(public navCtrl: NavController, private session: SessionService, private exercise: ExerciseService, private alertCtrl: AlertController, public modalCtrl: ModalController) {
+  logCompleted: boolean;
+
+  constructor(public navCtrl: NavController, private session: SessionService, private exercise: ExerciseService, private alertCtrl: AlertController, public modalCtrl: ModalController, public push: Push) {
     this.streak = window.localStorage.getItem("streak") || 1;
     this.nextApt =  window.localStorage.getItem("nextApt") || "Not Set"
     this.patient = this.session.patient;
     this.today = this.DateJs.today().toString('M-dd-yyyy');
     this.getPatientLog()
     this.updateActivity()
-  
+    this.getDeviceToken()
   }
 
   ionViewDidEnter() {
@@ -49,9 +52,11 @@ export class HomePage {
             "assigned": 0,
             "exercises": []
         }
+        this.logCompleted = false;
         this.session.updatePatientLog(this.patient.access_token, this.patient.AccountType, this.patient.attributes.PatientLogID)
       }
       var today = this.session.patient.patientLog[this.today]
+      this.logCompleted = this.session.patient.patientLog[this.today].logCompleted || false;
       this.remainingExercise = (today.assigned - today.completed)
       
       
@@ -60,14 +65,27 @@ export class HomePage {
   }
 
   updateActivity() {
-    if(this.session.patient.attributes.LastActive === this.DateJs.today().addDays(-1).toString('M-dd-yyyy')){
-      this.streak = parseInt(this.streak) + 1;
-      window.localStorage.setItem("steak", this.streak + "");
-    } else {
-      window.localStorage.setItem("streak", "1");
+    if(this.session.patient.attributes.LastActive !== this.DateJs.today().toString("yyyy-MM-dd")){
+      if(this.session.patient.attributes.LastActive === this.DateJs.today().addDays(-1).toString("yyyy-MM-dd")){
+        this.streak = parseInt(this.streak) + 1;
+        window.localStorage.setItem("steak", this.streak + "");
+      } else {
+        window.localStorage.setItem("streak", "1");
+      }
+      this.session.patient.attributes.LastActive = this.today;
+      this.session.patient.attributes.Activated = true;
+      this.session.updateLastActive(this.patient.access_token, this.patient.AccountType, this.patient.attributes.document_id);
     }
-    this.session.patient.attributes.LastActive = this.today;
-    this.session.updateLastActive(this.patient.access_token, this.patient.AccountType, this.patient.attributes.document_id);
+  }
+
+  getDeviceToken() {
+    this.push.register().then((t: PushToken) => {
+        return this.push.saveToken(t, 'ignore_user');
+      }).then((t: PushToken) => {
+        if(t.token){
+          this.session.saveDeviceToken(this.session.patient.access_token, this.session.patient.AccountType, this.session.patient.attributes.document_id, t.token)
+        } 
+      });  
   }
 
   completeAll() {
@@ -105,6 +123,7 @@ export class HomePage {
       this.session.patient.patientLog[this.today].pain = 10 - data.pain + 1;
       this.session.patient.patientLog[this.today].gettingBetter = data.gettingBetter;
       this.session.patient.patientLog[this.today].logCompleted = true;
+      this.logCompleted = true;
       this.session.updatePatientLog(this.session.patient.access_token, this.session.patient.AccountType, this.session.patient.attributes.PatientLogID)
       .then(data => {
 
@@ -141,8 +160,16 @@ export class HomePage {
           text: 'Update',
           handler: data => {
             if (data.date) {
+              if(this.patient.attributes.deviceToken){
+               this.session.scheduleAptPush(this.DateJs.parse(data.date).toString("h:mm"), this.DateJs.parse(data.date).addDays(-1).toString("yyyy-MM-ddT14:mm:ss+00:00"))
+               .then(data => {
+                  console.log(data.toString());
+                });
+              }
                this.nextApt = this.DateJs.parse(data.date).toString('dddd, MMM dS');
                window.localStorage.setItem("nextApt", this.nextApt)
+              
+
             } else {
               return false;
             }

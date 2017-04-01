@@ -106,6 +106,7 @@ export class ExercisePage {
   selectExercise(exercise) {
     this.timerActive = false;
     this.selectedExercise = exercise;
+    this.timer.initTimer(exercise.Hold);
   }
 
   toggleTimer() {

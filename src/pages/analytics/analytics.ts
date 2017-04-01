@@ -125,8 +125,8 @@ export class AnalyticsPage {
             var assigned = this.session.patient.patientLog[this.DateJs.today().addDays(-i).toString('M-dd-yyyy')].assigned;
             this.totalAssigned += assigned;
             this.compliance[i] = {"value": complete / assigned * 100}
-            this.days[i] = {"label": this.DateJs.today().addDays(-i).toString('ddd')}
         }
+        this.days[i] = {"label": this.DateJs.today().addDays(-i).toString('ddd')}
         
     }
     this.complianceScore = Math.floor(this.totalComplete / this.totalAssigned * 100);
