@@ -13,7 +13,7 @@
     <ion-card>
       <ion-card-content>
         <h2>
-          Next Appointment
+          Appointment Reminder
         </h2>
         <p style="font-size: 24px; font-weight: 300">
           {{nextApt}}
@@ -53,7 +53,7 @@
             <ion-icon name='checkmark-circle-outline'></ion-icon>
               Complete All Exercises
           </button>
-          <button *ngIf="!remainingExercise" ion-button clear small color="primary" icon-left  (click)="completeAll()">
+          <button *ngIf="!remainingExercise" ion-button clear small color="primary" icon-left>
             <ion-icon name='checkmark-circle'></ion-icon>
                All Exercises Complete
           </button>
@@ -69,9 +69,13 @@
       </button>
       <ion-row>
        <ion-col text-right>
-          <button ion-button clear small color="danger" icon-left (click)="presentLogModal()">
+          <button *ngIf="!logCompleted"ion-button clear small color="danger" icon-left (click)="presentLogModal()">
             <ion-icon name='md-bookmarks'></ion-icon>
               Update My Log
+          </button>
+          <button *ngIf="logCompleted" ion-button clear small color="primary" icon-left >
+            <ion-icon name='checkmark-circle'></ion-icon>
+               Log Updated
           </button>
         </ion-col>
       </ion-row>

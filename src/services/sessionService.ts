@@ -155,6 +155,32 @@ export class SessionService {
             })
     }
 
+    scheduleAptPush(time, date) {
+        
+        const headers = new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4NDk1ZWRhZi00OGY2LTQ1NjItYTFiNi1jNTBlY2NkY2UzMTcifQ.zOgUM1zB3NAE4KWk0LnZ9UGRaaZ3tPoPZgovz_YbhLs'
+            })
+
+        var message = "Reminder: You have an appointment tomorrow at " + time;
+        var tok = [this.patient.attributes.deviceToken];
+        var profile = 'production_push';
+
+        return this.http
+        .post('https://api.ionic.io/push/notifications', 
+            {
+                "tokens": tok,
+                "profile": profile, 
+                "scheduled": date,
+                 "notification": {
+                    "message": message
+                }
+            },
+            {headers: headers})
+        .toPromise()
+        
+    }
+
     private handleError(error){
         alert("Error: incorrect username or password");            
     }

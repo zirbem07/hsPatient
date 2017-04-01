@@ -15,22 +15,22 @@ export class TimerComponent {
     }
     
     ngOnInit() {
-        this.initTimer();
+        this.initTimer(this.timeInSeconds);
     }
     
     hasFinished() {
         return this.timer.hasFinished;
     }
     
-    initTimer() {
+    initTimer(time) {
         if(!this.timeInSeconds) { this.timeInSeconds = 0; }
     
         this.timer = <ITimer>{
-            seconds: this.timeInSeconds,
+            seconds: time,
             runTimer: false,
             hasStarted: false,
             hasFinished: false,
-            secondsRemaining: this.timeInSeconds
+            secondsRemaining: time
         };
     
         this.timer.displayTime = this.getSecondsAsDigitalClock(this.timer.secondsRemaining);
