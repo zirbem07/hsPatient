@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NavController } from 'ionic-angular';
@@ -28,6 +28,9 @@ export class LoginPage {
     });
   }
 
+  ngOnInit() {
+        console.log(localStorage)
+    }
 
 
   login(event) {
