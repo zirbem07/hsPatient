@@ -5,7 +5,9 @@ import { NavController } from 'ionic-angular';
 import { SessionService } from '../../services/sessionService';
 
 import { HomePage } from '../home/home';
-import { ForgotPasswordPage } from '../forgotPassword/forgotPassword'
+import { ForgotPasswordPage } from '../forgotPassword/forgotPassword';
+import { EnterAccessCodePage } from '../enterAccessCode/enterAccessCode';
+import { PasswordLoginPage } from '../passwordLogin/passwordLogin';
 
 
 @Component({
@@ -28,7 +30,23 @@ export class LoginPage {
   }
 
   ngOnInit() {
-        console.log(localStorage)
+      console.log(localStorage)
+      var firstTimeCheck = localStorage.getItem('activated')
+      if(firstTimeCheck != 'true' && this.email == ""){
+         //access code
+        this.navCtrl.push(EnterAccessCodePage)
+        //have a Dont have an access code? click here to get it and this will mimic forgot password
+        //have I set my pin already button
+      }
+      else if(firstTimeCheck != 'true' && this.email != ""){
+        this.navCtrl.push(PasswordLoginPage)
+        //password login -> set pin
+        //have I set my password to a pin already button
+      }
+      else{
+        //pin login
+       
+      }
     }
 
 

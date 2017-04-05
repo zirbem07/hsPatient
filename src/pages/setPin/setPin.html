@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Set Pin
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="setPinForm" (submit)="setPin($event)">
+        <ion-list style="margin-top: 25px">
+            <ion-item >
+                <ion-label floating>Pin for {{emailFromCode}}</ion-label>
+                <ion-input [formControl]="setPinForm.controls['pin']" type="tel"></ion-input>
+            </ion-item>
+            <ion-item >
+                <ion-label floating>Confirm Pin</ion-label>
+                <ion-input [formControl]="setPinForm.controls['confirmPin']" type="tel"></ion-input>
+            </ion-item>
+        </ion-list>  
+        <button ion-button block type="submit">Set Pin</button>
+    </form>
+</ion-content>

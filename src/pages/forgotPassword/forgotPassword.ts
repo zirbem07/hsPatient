@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from 'ionic-angular';
 import { Dialogs } from 'ionic-native';
 import { SessionService } from '../../services/sessionService';
+import { EnterAccessCodePage } from '../enterAccessCode/enterAccessCode';
 
 
 @Component({
@@ -21,6 +22,9 @@ export class ForgotPasswordPage {
     });
   }
 
+  toAccessCode(){
+    this.navCtrl.push(EnterAccessCodePage)
+  }
 
  forgotPassword(){  
      if(this.forgotForm.controls["email"]){

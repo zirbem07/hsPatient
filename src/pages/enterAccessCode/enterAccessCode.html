@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Enter Access Code
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="accessCodeForm" (submit)="verifyCode($event)">
+        <img src="../../assets/icon.png">
+            <ion-item >
+                <ion-label floating>Access Code</ion-label>
+                <ion-input [formControl]="accessCodeForm.controls['code']" type="tel"></ion-input>
+            </ion-item>
+        <button ion-button block type="submit">Next</button>
+        
+         <p>To get a access code click <a (click)="newAccessCode()">here</a></p>
+         
+        <p><small>If you've already set a pin click <a (click)="toLogin()">here</a> to log in</small></p>
+    </form>
+</ion-content>

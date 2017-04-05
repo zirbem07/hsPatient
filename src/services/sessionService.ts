@@ -33,6 +33,13 @@ export class SessionService {
             .toPromise();
     }
 
+    verifyUser(email: String): Promise<any> {
+        const url = 'https://healthconnection.io/hcPassword/php/verifyUser.php'
+        return this.http
+            .post(url, {email: email}, {})
+            .toPromise();
+    }
+
     getUserInfo(id: string, access_token: string): Promise<any> {
         const url = 'https://api.truevault.com/v1/users/' + id + '?full=true';
         const headers = new Headers({
@@ -153,6 +160,23 @@ export class SessionService {
                             {headers: headers})
                     .toPromise()
             })
+    }
+
+    verifyCode(code: string): Promise<any> {
+        const headers = new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded'
+        })
+
+        return this.http
+            .get("https://healthconnection.io/testAPI/web/index.php/api/v1/passwordReset/" + code)
+            .toPromise()
+    }
+
+    setPin(userID: string, pin: number): Promise<any> {
+        const url = 'https://healthconnection.io/hcPassword/php/setPasswordFromApp.php'
+        return this.http
+            .post(url, {userID: userID, password: pin}, {})
+            .toPromise();
     }
 
     scheduleAptPush(time, date) {
