@@ -24,7 +24,7 @@ export class ExercisePage {
     BodyPart: "",
     Days: "1,1,1,1,1,1,1,1,1,1,1",
     Strength: "",
-    Hold: 10,
+    Hold: 0,
     Equipment: "",
     Deleted: false,
     Video: "",

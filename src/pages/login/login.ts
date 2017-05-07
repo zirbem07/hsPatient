@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NavController } from 'ionic-angular';
@@ -30,7 +30,7 @@ export class LoginPage {
   }
 
   ngOnInit() {
-      console.log(localStorage)
+
       var firstTimeCheck = localStorage.getItem('activated')
       if(firstTimeCheck != 'true' && this.email == ""){
          //access code

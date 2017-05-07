@@ -163,16 +163,13 @@ export class SessionService {
     }
 
     verifyCode(code: string): Promise<any> {
-        const headers = new Headers({
-            'Content-Type': 'application/x-www-form-urlencoded'
-        })
 
         return this.http
             .get("https://healthconnection.io/testAPI/web/index.php/api/v1/passwordReset/" + code)
             .toPromise()
     }
 
-    setPin(userID: string, pin: number): Promise<any> {
+    setPin(userID: string, pin: string): Promise<any> {
         const url = 'https://healthconnection.io/hcPassword/php/setPasswordFromApp.php'
         return this.http
             .post(url, {userID: userID, password: pin}, {})

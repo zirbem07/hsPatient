@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NavController, ModalController, NavParams } from 'ionic-angular';
-import { Dialogs } from 'ionic-native';
 import { SessionService } from '../../services/sessionService';
 import { SetPinPage } from '../setPin/setPin';
 import { LoginPage } from '../login/login';

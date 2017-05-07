@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NavController, NavParams } from 'ionic-angular';
@@ -15,6 +15,11 @@ import { LoginPage } from '../login/login';
 export class SetPinPage {
   setPinForm: FormGroup;
   emailFromCode: String; 
+  pin: any[];
+  @ViewChild('input') pin1;
+  @ViewChild('input2') pin2;
+  @ViewChild('input3') pin3 ;
+  @ViewChild('input4') pin4;
      
 
   constructor(public navCtrl: NavController, fb: FormBuilder, params: NavParams, private session: SessionService) {
@@ -28,26 +33,26 @@ export class SetPinPage {
     console.log(params)
   }
 
+  ionViewDidLoad(){
+    this.pin = [
+      this.pin1, this.pin2, this.pin3, this.pin4
+    ]
+  }
+
 
 //healthconnection.io/hcPassword/php/resetPassword.php
  setPin(){  
-   console.log('setpin')
-     if(this.setPinForm.controls["pin"].value == this.setPinForm.controls["confirmPin"].value){
-       this.session.verifyUser(this.emailFromCode)
-        .then(data => {
-            console.log(data)
-            console.log(data.json().data.documents[0].user_id)
-            this.session.setPin(data.json().data.documents[0].user_id, this.setPinForm.controls["pin"].value)
-              .then(data => {
-              console.log(data)
+      let finalPin = this.pin1._value + this.pin2._value +  this.pin3._value +  this.pin4._value;
+      this.session.verifyUser(this.emailFromCode)
+      .then(data => {
+          console.log(data.json())
+          this.session.setPin(data.json().data.documents[data.json().data.documents.length - 1].user_id, finalPin)
+            .then(data => {
               window.localStorage.setItem("activated", "true")
               this.navCtrl.setRoot(LoginPage)
-            });
-        });
-     }
-     else{
-       console.log('nope')
-     }
+          });
+      });
+    
   }
 
   showDialog(){
@@ -55,5 +60,18 @@ export class SetPinPage {
         .then((response) => {
           this.navCtrl.pop();
        })
+  }
+
+  nextInput(ev, index){
+    if(ev.key === "Backspace") {
+      if(this.pin[index - 2]){
+        this.pin[index - 2]._value = "";
+        this.pin[index - 2].setFocus();
+      }
+    } else {
+      if(this.pin[index]){
+        this.pin[index].setFocus();
+      }
+    } 
   }
 }

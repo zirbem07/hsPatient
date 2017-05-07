@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { NavController, ModalController, NavParams } from 'ionic-angular';
+import { NavController, ModalController, NavParams, ToastController } from 'ionic-angular';
 import { Dialogs } from 'ionic-native';
 import { SessionService } from '../../services/sessionService';
 import { SetPinPage } from '../setPin/setPin';
@@ -16,30 +16,64 @@ import { ForgotPasswordPage } from '../forgotPassword/forgotPassword';
 
 
 export class EnterAccessCodePage {
+  @ViewChild('input') code1;
+  @ViewChild('input2') code2;
+  @ViewChild('input3') code3 ;
+  @ViewChild('input4') code4;
+  @ViewChild('input5') code5;
+  @ViewChild('input6') code6 ;
+  activationCode: any[];
   accessCodeForm: FormGroup; 
      
 
-  constructor(public navCtrl: NavController, fb: FormBuilder, params: NavParams, public modalCtrl: ModalController, private session: SessionService) {
+  constructor(public navCtrl: NavController, fb: FormBuilder, params: NavParams, public modalCtrl: ModalController, private session: SessionService, private toastCtrl: ToastController) {
     this.accessCodeForm = fb.group({
       code: ["", Validators.required]
     });
+    
+  }
+  ionViewDidLoad(){
+    this.activationCode = [
+      this.code1, this.code2, this.code3,
+      this.code4, this.code5, this.code6
+      ]
   }
 
-
  verifyCode(){  
-     if(this.accessCodeForm.controls["code"]){
-         this.session.verifyCode(this.accessCodeForm.controls["code"].value)
+      let code = this.code1._value + this.code2._value + this.code3._value + this.code4._value + this.code5._value + this.code6._value 
+     if(code.length === 6){
+        this.session.verifyCode(code)
         .then(data => {
-            console.log(data.json())
             data = data.json();
             if(data[0]){
               this.navCtrl.push(SetPinPage, {Email: data[0].Email})
             }
             else{
-              //show error dialog
+              this.presentToast()
+              this.code1.setFocus();
+              this.code1._value = "";
+              this.code2._value = "";
+              this.code3._value = "";
+              this.code4._value = "";
+              this.code5._value = "";
+              this.code6._value = "";
+              
             }
         });
      }
+  }
+
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Invalid Activation Code',
+      duration: 3000,
+      position: 'top'
+    });
+
+    toast.onDidDismiss(() => {
+    });
+
+    toast.present();
   }
 
   toPasswordLogin(){
@@ -66,5 +100,18 @@ export class EnterAccessCodePage {
         .then((response) => {
           this.navCtrl.pop();
        })
+  }
+
+  nextInput(ev, index){
+    if(ev.key === "Backspace") {
+      if(this.activationCode[index - 2]){
+        this.activationCode[index - 2]._value = "";
+        this.activationCode[index - 2].setFocus();
+      }
+    } else {
+      if(this.activationCode[index]){
+        this.activationCode[index].setFocus();
+      }
+    } 
   }
 }

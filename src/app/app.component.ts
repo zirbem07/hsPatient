@@ -3,7 +3,7 @@ import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 // import { TabsPage } from '../pages/tabs/tabs';
-import { LoginPage } from '../pages/login/login';
+import { EnterAccessCodePage } from '../pages/enterAccessCode/enterAccessCode';
 import { SessionService } from '../services/sessionService';
 import { ExerciseService } from '../services/exerciseService';
 
@@ -14,7 +14,7 @@ import { ExerciseService } from '../services/exerciseService';
 })
 
 export class MyApp {
-  rootPage = LoginPage;
+  rootPage = EnterAccessCodePage;
 
   constructor(public platform: Platform) {
     platform.ready().then(() => {

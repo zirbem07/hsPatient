@@ -1,22 +1,50 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Enter Access Code
-    </ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
+<ion-content padding class="center-vertical">
     <form [formGroup]="accessCodeForm" (submit)="verifyCode($event)">
-        <img src="../../assets/icon.png">
-            <ion-item >
-                <ion-label floating>Access Code</ion-label>
-                <ion-input [formControl]="accessCodeForm.controls['code']" type="tel"></ion-input>
-            </ion-item>
-        <button ion-button block type="submit">Next</button>
+        <h3 style="text-align: center; font-size:26px;  font-weight: 300; line-height: 30px">Activate Your Account</h3>
+        <p style="text-align: center; font-size:16px; line-height: 18px; font-weight: 300">Look for an email from Health Snaps</p>
+        <img width="80%" style="margin: auto; display: block; border: .01em solid #AAA; box-shadow: 5px 5px 5px #888;" src="./assets/activationScreen.png">
+        <p style="text-align: center; font-size:16px; line-height: 18px; font-weight: 300; color: red">Enter your 6 digit Activation Code</p>
+        <div class="center-vertical">
+            <ion-row class="row" style="text-align: center; margin-top: 20px">
+                <ion-col class="col col-2">
+                    <ion-input #input type="tel" class="pin-input" maxlength="1" (keyup)="nextInput($event, 1)"> </ion-input>
+                </ion-col>
+                <ion-col class="col col-2" >
+                    <ion-input type="tel" class="pin-input" style="text-align: center" maxlength="1" #input2 (keyup)="nextInput($event,2)"></ion-input>
+                </ion-col>
+                <ion-col class="col col-2" >
+                    <ion-input type="tel" class="pin-input" maxlength="1" #input3 (keyup)="nextInput($event,3)"></ion-input>
+                </ion-col>
+                <ion-col class="col col-2" >
+                    <ion-input type="tel" class="pin-input" maxlength="1"  #input4 (keyup)="nextInput($event,4)"></ion-input>
+                </ion-col>
+                <ion-col class="col col-2" >
+                    <ion-input  type="tel" class="pin-input" maxlength="1"  #input5 (keyup)="nextInput($event,5)"></ion-input>
+                </ion-col>
+                <ion-col class="col col-2" >
+                    <ion-input  type="tel" class="pin-input" maxlength="1"  #input6 (keyup)="nextInput($event,6)"></ion-input>
+                </ion-col>
+            </ion-row>
+        </div>
+        <button ion-button block style="margin-top: 20px" type="submit">Activate</button>
         
-         <p>To get a access code click <a (click)="newAccessCode()">here</a></p>
+         <p style="text-align:center"><a (click)="newAccessCode()">I need a new Access Code</a></p>
          
-        <p><small>If you've already set a pin click <a (click)="toLogin()">here</a> to log in</small></p>
+         <p style="text-align:center"><a (click)="toLogin()">I already activated my account</a></p>
     </form>
 </ion-content>
+
+<style>
+    .pin-input {
+        text-align: center !important;
+        width: 80%;
+        border: 0px;
+        border-bottom: 1px solid black;
+        font-size: 30px;
+        padding: 0.2em 0em 0em 0em;
+    }
+    .pin-input > .text-input-ios {
+        text-align: center !important;
+    }
+</style>  

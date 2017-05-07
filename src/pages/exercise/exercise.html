@@ -38,7 +38,7 @@
       <p class="exerciseInfo-desc">Per Day</p>
     </ion-col>
   </ion-row>
-  <timer #timer [timeInSeconds]="selectedExercise.Hold"></timer>
+  <timer #timer ng-if="selectedExercise.Hold" [timeInSeconds]="selectedExercise.Hold"></timer>
   <ion-row>
     <ion-col text-left>
       <button ion-button clear small color="danger" icon-left (click)="completeExercise(selectedExercise.Name, -1)">

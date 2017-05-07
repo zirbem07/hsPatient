@@ -1,14 +1,25 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Set Pin
-    </ion-title>
-  </ion-navbar>
-</ion-header>
 
 <ion-content padding>
+    <h2 style="text-align: center; font-weight: 500; color: #8BC24A; margin: 20px 0px;">Account Activated!</h2>
+    <h2 style="text-align: center; font-weight: 300; margin-top: 10%">Set a pin for:</h2>
+    <p style="text-align: center; font-size: 20px; font-weight: 500; ">{{emailFromCode}}</p>
+    <p style="text-align: center; font-size: 16px;">Your pin will be required each time you login to Health Snaps.</p>
     <form [formGroup]="setPinForm" (submit)="setPin($event)">
-        <ion-list style="margin-top: 25px">
+        <ion-row class="row" style="text-align: center; margin-top: 20px">
+                <ion-col class="col col-2">
+                    <ion-input #input type="tel" class="pin-input" maxlength="1" (keyup)="nextInput($event, 1)"> </ion-input>
+                </ion-col>
+                <ion-col class="col col-2" >
+                    <ion-input  type="tel" class="pin-input" style="text-align: center" maxlength="1" #input2 (keyup)="nextInput($event,2)"></ion-input>
+                </ion-col>
+                <ion-col class="col col-2" >
+                    <ion-input  type="tel" class="pin-input" maxlength="1" #input3 (keyup)="nextInput($event,3)"></ion-input>
+                </ion-col>
+                <ion-col class="col col-2" >
+                    <ion-input  type="tel" class="pin-input" maxlength="1"  #input4 (keyup)="nextInput($event,4)"></ion-input>
+                </ion-col>
+            </ion-row>
+        <!--<ion-list style="margin-top: 25px">   
             <ion-item >
                 <ion-label floating>Pin for {{emailFromCode}}</ion-label>
                 <ion-input [formControl]="setPinForm.controls['pin']" type="tel"></ion-input>
@@ -17,7 +28,21 @@
                 <ion-label floating>Confirm Pin</ion-label>
                 <ion-input [formControl]="setPinForm.controls['confirmPin']" type="tel"></ion-input>
             </ion-item>
-        </ion-list>  
-        <button ion-button block type="submit">Set Pin</button>
+        </ion-list>  -->
+        <button ion-button block style="margin-top: 20px" type="submit">Set Pin</button>
     </form>
 </ion-content>
+
+<style>
+    .pin-input {
+        text-align: center !important;
+        width: 80%;
+        border: 0px;
+        border-bottom: 1px solid black;
+        font-size: 30px;
+        padding: 0.2em 0em 0em 0em;
+    }
+    .pin-input > .text-input-ios {
+        text-align: center !important;
+    }
+</style> 
