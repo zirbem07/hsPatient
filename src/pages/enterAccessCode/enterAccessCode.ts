@@ -103,6 +103,7 @@ export class EnterAccessCodePage {
   }
 
   nextInput(ev, index){
+
     if(ev.key === "Backspace") {
       if(this.activationCode[index - 2]){
         this.activationCode[index - 2]._value = "";

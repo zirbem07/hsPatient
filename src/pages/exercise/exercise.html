@@ -41,19 +41,19 @@
   <timer #timer ng-if="selectedExercise.Hold" [timeInSeconds]="selectedExercise.Hold"></timer>
   <ion-row>
     <ion-col text-left>
-      <button ion-button clear small color="danger" icon-left (click)="completeExercise(selectedExercise.Name, -1)">
+      <button ion-button outline small color="danger" icon-left (click)="completeExercise(selectedExercise.Name, -1)">
         <ion-icon name='checkmark-circle-outline'></ion-icon>
           Severe Pain
       </button>
     </ion-col>
     <ion-col>
-      <button ion-button clear small color="" icon-left (click)="completeExercise(selectedExercise.Name, 0)">
+      <button ion-button outline small color="" icon-left (click)="completeExercise(selectedExercise.Name, 0)">
         <ion-icon name='checkmark-circle-outline'></ion-icon>
           Mild Pain
       </button>
     </ion-col>
     <ion-col text-right>
-      <button ion-button clear small color="secondary" icon-left (click)="completeExercise(selectedExercise.Name, 1)">
+      <button ion-button outline small color="secondary" icon-left (click)="completeExercise(selectedExercise.Name, 1)">
         <ion-icon name='checkmark-circle-outline'></ion-icon>
           No Pain
       </button>

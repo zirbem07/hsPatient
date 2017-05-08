@@ -1,18 +1,33 @@
 <ion-content padding>
     <img src="./assets/icon.png" width="50%" style="margin: auto; display: block; padding-top: 80px">
     <form [formGroup]="loginForm" (submit)="login($event)">
-        <ion-list style="margin-top: 25px">
-            <ion-item style="border: 0">
+        <ion-item style="border: 0">
                 <ion-label floating>Email</ion-label>
                 <ion-input [formControl]="loginForm.controls['email']" type="email"></ion-input>
             </ion-item>
+            <ion-row class="row" style="text-align: center; margin-top: 20px">
+                <ion-col class="col col-2">
+                    <ion-input #input type="tel" class="pin-input" maxlength="1" (keyup)="nextInput($event, 1)"> </ion-input>
+                </ion-col>
+                <ion-col class="col col-2" >
+                    <ion-input  type="tel" class="pin-input" style="text-align: center" maxlength="1" #input2 (keyup)="nextInput($event,2)"></ion-input>
+                </ion-col>
+                <ion-col class="col col-2" >
+                    <ion-input  type="tel" class="pin-input" maxlength="1" #input3 (keyup)="nextInput($event,3)"></ion-input>
+                </ion-col>
+                <ion-col class="col col-2" >
+                    <ion-input  type="tel" class="pin-input" maxlength="1"  #input4 (keyup)="nextInput($event,4)"></ion-input>
+                </ion-col>
+            </ion-row>
+        <!--<ion-list style="margin-top: 25px">
+            
 
             <ion-item>
                 <ion-label floating>Pin</ion-label>
                 <ion-input #input [formControl]="loginForm.controls['password']" type="tel"></ion-input>
             </ion-item>
 
-        </ion-list>  
+        </ion-list>  -->
         <button ion-button block type="submit">Login</button>
     </form>
     <ion-row>
@@ -21,3 +36,17 @@
         </ion-col>
     </ion-row>
 </ion-content>
+
+<style>
+    .pin-input {
+        text-align: center !important;
+        width: 80%;
+        border: 0px;
+        border-bottom: 1px solid black;
+        font-size: 30px;
+        padding: 0.2em 0em 0em 0em;
+    }
+    .pin-input > .text-input-ios {
+        text-align: center !important;
+    }
+</style> 

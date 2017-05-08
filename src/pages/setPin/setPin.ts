@@ -16,7 +16,7 @@ export class SetPinPage {
   setPinForm: FormGroup;
   emailFromCode: String; 
   pin: any[];
-  @ViewChild('input') pin1;
+  @ViewChild('input')  pin1;
   @ViewChild('input2') pin2;
   @ViewChild('input3') pin3 ;
   @ViewChild('input4') pin4;

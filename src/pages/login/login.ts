@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NavController } from 'ionic-angular';
@@ -18,6 +18,11 @@ import { PasswordLoginPage } from '../passwordLogin/passwordLogin';
 export class LoginPage {
   loginForm: FormGroup; 
   email: string;
+  pin: any[];
+  @ViewChild('input')  pin1;
+  @ViewChild('input2') pin2;
+  @ViewChild('input3') pin3 ;
+  @ViewChild('input4') pin4;
      
 
   constructor(public navCtrl: NavController, fb: FormBuilder, private session: SessionService) {
@@ -25,7 +30,7 @@ export class LoginPage {
     
     this.loginForm = fb.group({
       email: [this.email, Validators.required],
-      password: ["", Validators.required]
+      password: ["1234", Validators.required]
     });
   }
 
@@ -49,6 +54,11 @@ export class LoginPage {
       }
     }
 
+  ionViewDidLoad(){
+    this.pin = [
+      this.pin1, this.pin2, this.pin3, this.pin4
+    ]
+  }
 
   login(event) {
 
@@ -66,6 +76,23 @@ export class LoginPage {
                 })
             })
         })
+    } 
+  }
+
+
+  nextInput(ev, index){
+    if(ev.key === "Backspace") {
+      if(this.pin[index - 2]){
+        this.pin[index - 2]._value = "";
+        this.pin[index - 1 ]._type = "tel";
+        this.pin[index - 2 ]._type = "tel";
+        this.pin[index - 2].setFocus();
+      }
+    } else {
+      if(this.pin[index]){
+        this.pin[index -1 ]._type = "password";
+        this.pin[index].setFocus();
+      }
     } 
   }
 
