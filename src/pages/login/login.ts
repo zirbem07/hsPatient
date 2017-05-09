@@ -30,30 +30,9 @@ export class LoginPage {
     
     this.loginForm = fb.group({
       email: [this.email, Validators.required],
-      password: ["1234", Validators.required]
+      password: ["", Validators.required]
     });
   }
-
-  ngOnInit() {
-
-      var firstTimeCheck = localStorage.getItem('activated')
-      if(firstTimeCheck != 'true' && this.email == ""){
-         //access code
-        this.navCtrl.push(EnterAccessCodePage)
-        //have a Dont have an access code? click here to get it and this will mimic forgot password
-        //have I set my pin already button
-      }
-      else if(firstTimeCheck != 'true' && this.email != ""){
-        this.navCtrl.push(PasswordLoginPage)
-        //password login -> set pin
-        //have I set my password to a pin already button
-      }
-      else{
-        //pin login
-       
-      }
-    }
-
   ionViewDidLoad(){
     this.pin = [
       this.pin1, this.pin2, this.pin3, this.pin4
@@ -61,9 +40,9 @@ export class LoginPage {
   }
 
   login(event) {
-
-    if(this.loginForm.controls["email"] && this.loginForm.controls["password"]){
-        this.session.login(this.loginForm.controls["email"].value, this.loginForm.controls["password"].value)
+    let finalPin = this.pin1._value + this.pin2._value + this.pin3._value + this.pin4._value;
+    if(this.loginForm.controls["email"] && finalPin.length === 4){
+        this.session.login(this.loginForm.controls["email"].value, finalPin)
         .then(user => {
             window.localStorage.setItem("username", this.loginForm.controls["email"].value)
             this.session.getUserInfo(this.session.patient.id, this.session.patient.access_token)
@@ -89,8 +68,8 @@ export class LoginPage {
         this.pin[index - 2].setFocus();
       }
     } else {
+      this.pin[index -1 ]._type = "password";
       if(this.pin[index]){
-        this.pin[index -1 ]._type = "password";
         this.pin[index].setFocus();
       }
     } 

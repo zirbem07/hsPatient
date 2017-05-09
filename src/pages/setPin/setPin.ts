@@ -29,8 +29,6 @@ export class SetPinPage {
     });
 
     this.emailFromCode = params.data.Email
-
-    console.log(params)
   }
 
   ionViewDidLoad(){
@@ -42,6 +40,7 @@ export class SetPinPage {
 
 //healthconnection.io/hcPassword/php/resetPassword.php
  setPin(){  
+      window.localStorage.setItem("username", this.emailFromCode + "")
       let finalPin = this.pin1._value + this.pin2._value +  this.pin3._value +  this.pin4._value;
       this.session.verifyUser(this.emailFromCode)
       .then(data => {

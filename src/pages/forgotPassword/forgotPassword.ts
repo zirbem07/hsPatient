@@ -28,17 +28,25 @@ export class ForgotPasswordPage {
 
  forgotPassword(){  
      if(this.forgotForm.controls["email"]){
-         this.session.forgotPassword(this.forgotForm.controls["email"].value)
+        this.session.verifyUser(this.forgotForm.controls["email"].value)
         .then(data => {
-            this.showDialog()
-        });
+          if(data.json().data.documents[0]){
+           this.session.forgotPassword(this.forgotForm.controls["email"].value)
+            .then(data => {
+                this.showDialog("An email has been sent. Please follow the link to reset your passowrd.", true)
+            });
+          } else {
+              this.showDialog("No account associated with this email.", false);
+          }
+        })
+        
      }
   }
 
-  showDialog(){
-      Dialogs.confirm("An email has been sent. Please follow the link to reset your passowrd.", "Password Reset", ["Ok"])
+  showDialog(message, exit){
+      Dialogs.confirm(message, "Password Reset", ["Ok"])
         .then((response) => {
-          this.navCtrl.pop();
+          if(exit){this.navCtrl.pop();}
        })
   }
 }

@@ -76,16 +76,6 @@ export class EnterAccessCodePage {
     toast.present();
   }
 
-  toPasswordLogin(){
-    let passwordLoginModal = this.modalCtrl.create(PasswordLoginPage);
-    passwordLoginModal.onDidDismiss(data => {
-      if(data){
-        this.navCtrl.push(SetPinPage, {Email: data})
-      }
-    });
-    passwordLoginModal.present();
-  }
-
   newAccessCode(){
     this.navCtrl.push(ForgotPasswordPage)
   }
