@@ -10,6 +10,7 @@ export class TimerComponent {
  
     @Input() timeInSeconds: number;
     public timer: ITimer;
+    public time: number;
     
     constructor() {
     }
@@ -23,6 +24,7 @@ export class TimerComponent {
     }
     
     initTimer(time) {
+        this.time = time
         if(!this.timeInSeconds) { this.timeInSeconds = 0; }
     
         this.timer = <ITimer>{
@@ -34,6 +36,10 @@ export class TimerComponent {
         };
     
         this.timer.displayTime = this.getSecondsAsDigitalClock(this.timer.secondsRemaining);
+    }
+
+    resetTimer() {
+        this.initTimer(this.time)
     }
     
     startTimer() {
