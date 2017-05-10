@@ -25,9 +25,9 @@ export class MyApp {
         this.rootPage = PasswordLoginPage;
       }
       else if(window.localStorage.getItem("activated")){
-         this.rootPage = PasswordLoginPage;
+         this.rootPage = LoginPage;
       } else {
-        this.rootPage = PasswordLoginPage;
+        this.rootPage = EnterAccessCodePage;
       }
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

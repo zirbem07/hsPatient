@@ -16,12 +16,12 @@ import { ForgotPasswordPage } from '../forgotPassword/forgotPassword';
 
 
 export class EnterAccessCodePage {
-  @ViewChild('input') code1;
+  @ViewChild('input')  code1;
   @ViewChild('input2') code2;
   @ViewChild('input3') code3 ;
   @ViewChild('input4') code4;
   @ViewChild('input5') code5;
-  @ViewChild('input6') code6 ;
+  @ViewChild('input6') code6;
   activationCode: any[];
   accessCodeForm: FormGroup; 
      
