@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { ExerciseService }  from '../../services/exerciseService';
 import { SessionService } from '../../services/sessionService';
 import { Exercise }  from '../../models/exercise';
@@ -19,6 +19,8 @@ export class ExercisePage {
   private DateJs: IDateJSStatic =  <any>Date;
   private today;
   private timerActive: boolean = false;
+  showText: boolean = true;
+  @ViewChild('video') video;
   private noExercises: Exercise = {
     Name: "No Exercises",
     BodyPart: "",
@@ -45,7 +47,7 @@ export class ExercisePage {
 
   @ViewChild(TimerComponent) timer: TimerComponent;
 
-  constructor(public navCtrl: NavController, private session: SessionService, private exercise: ExerciseService) {
+  constructor(public navCtrl: NavController, public plt: Platform, private session: SessionService, private exercise: ExerciseService) {
     this.exercises = exercise.exercises;
     this.patient = session.patient;
     this.today = this.DateJs.today().toString('M-dd-yyyy')
@@ -104,6 +106,12 @@ export class ExercisePage {
   }
 
   selectExercise(exercise) {
+    if(this.plt.is('android')){
+      var video = document.getElementById("myVideo");
+      video.style.width = "180px";
+      video.style.height = "180px";
+      this.showText = true;
+    }
     this.timerActive = false;
     this.selectedExercise = exercise;
     this.timer.initTimer(exercise.Hold);
@@ -111,6 +119,36 @@ export class ExercisePage {
 
   toggleTimer() {
     this.timerActive = !this.timerActive;
+  }
+
+  videoPlay() {
+    console.log('play')
+    if(this.plt.is('android')){
+      this.showText = false;
+      var video = document.getElementById("myVideo");
+      video.style.width = "300px";
+      video.style.height = "300px";
+    }
+  }
+
+  videoPause() {
+    console.log('pause')
+    if(this.plt.is('android')){
+      this.showText = true;
+      var video = document.getElementById("myVideo");
+      video.style.width = "180px";
+      video.style.height = "180px";
+    }
+  }
+
+  videoEnd() {
+    console.log('end')
+    if(this.plt.is('android')){
+      this.showText = true;
+      var video = document.getElementById("myVideo");
+      video.style.width = "180px";
+      video.style.height = "180px";
+    }
   }
 
 }

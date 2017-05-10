@@ -8,13 +8,13 @@
 
 <ion-content>
   <ion-row>
-    <ion-col width-33>
+    <ion-col style="margin: auto; display: block">
       <!--<img class="exercise-img" [src]="selectedExercise.Img" width="120px" height="120px">-->
-      <video allowfullscreen controls="controls" preload="auto" [src]="selectedExercise.Video" class="exercise-img" poster="{{selectedExercise.Img}}" width="120px" height="120px">
+      <video id="myVideo" #video allowfullscreen controls="controls" preload="auto" [src]="selectedExercise.Video" class="exercise-img" on-play="videoPlay()" on-pause="videoPause()" on-ended="videoEnd()" poster="{{selectedExercise.Img}}" width="180px" height="180px">
 
       </video>
     </ion-col>
-    <ion-col>
+    <ion-col *ngIf="showText">
       <ion-row>
         <span class="exercise-title">{{selectedExercise.Name}}</span>
       </ion-row>
