@@ -6,8 +6,6 @@ import { SessionService } from '../../services/sessionService';
 
 import { HomePage } from '../home/home';
 import { ForgotPasswordPage } from '../forgotPassword/forgotPassword';
-import { EnterAccessCodePage } from '../enterAccessCode/enterAccessCode';
-import { PasswordLoginPage } from '../passwordLogin/passwordLogin';
 
 
 @Component({
@@ -68,7 +66,7 @@ export class LoginPage {
         this.pin[index - 2].setFocus();
       }
     } else {
-      this.pin[index -1 ]._type = "password";
+      // this.pin[index -1 ]._type = "password";
       if(this.pin[index]){
         this.pin[index].setFocus();
       }

@@ -119,6 +119,7 @@ export class SessionService {
         })
 
         this.patient.attributes.LastActive = Date.today().toString("yyyy-MM-dd");
+        this.patient.attributes.Activated = true;
 
         return this.http
             .put(url, this.formatData({document: btoa(JSON.stringify(this.patient.attributes)), schema_id: VaultID[accountType].PatientSchema}), {headers: headers})
@@ -155,17 +156,23 @@ export class SessionService {
             .toPromise()
             .then(data => {
                 this.http
-                    .post('https://healthconnection.io/hcMailgun/sendPasswordResetEmail.php', 
-                            this.formatData({email: email, link: 'https://healthconnection.io/hcPassword/index.html#/resetPasswordCode/' + text}),
+                    .post('https://healthconnection.io/app/php/sendPatientResetEmail.php', 
+                            {email: email, url: 'https://healthconnection.io/hcPassword/index.html#/resetPasswordCodePatient/' + text, template: 'patient-password-reset'},
                             {headers: headers})
                     .toPromise()
             })
     }
 
+    getActivationCode(email: string): Promise<any> {
+        return this.http
+            .get("https://healthconnection.io/hcAPI/web/index.php/api/v1/activateAccountByEmail/" +  email)
+            .toPromise()
+    }
+
     verifyCode(code: string): Promise<any> {
 
         return this.http
-            .get("https://healthconnection.io/testAPI/web/index.php/api/v1/passwordReset/" + code)
+            .get("https://healthconnection.io/hcAPI/web/index.php/api/v1/activateAccount/" + code)
             .toPromise()
     }
 

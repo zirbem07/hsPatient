@@ -5,7 +5,6 @@ import { NavController, ModalController, NavParams, ToastController } from 'ioni
 import { Dialogs } from 'ionic-native';
 import { SessionService } from '../../services/sessionService';
 import { SetPinPage } from '../setPin/setPin';
-import { PasswordLoginPage } from '../passwordLogin/passwordLogin';
 import { LoginPage } from '../login/login';
 import { ForgotPasswordPage } from '../forgotPassword/forgotPassword';
 
@@ -77,7 +76,7 @@ export class EnterAccessCodePage {
   }
 
   newAccessCode(){
-    this.navCtrl.push(ForgotPasswordPage)
+    this.navCtrl.push(ForgotPasswordPage, {'type': true})
   }
 
   toLogin(){
