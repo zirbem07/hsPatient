@@ -1,6 +1,5 @@
 {
   "name": "Health Snaps",
   "app_id": "9ec1b6bf",
-  "v2": true,
-  "typescript": true
+  "type": "ionic-angular"
 }
