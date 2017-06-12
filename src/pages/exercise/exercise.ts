@@ -61,7 +61,7 @@ export class ExercisePage {
     var log = this.session.patient.patientLog[this.today].exercises;
     this.exercises.forEach((item, index) => { 
       if(typeof item.Days === 'string' && item.Days.split(',')[d.getDay()] === "0"){
-          this.exercises.splice(1, index);
+          this.exercises.splice(index, 1);
       }
       for (let logItem of log){
 

@@ -66,7 +66,6 @@ export class LoginPage {
         this.pin[index - 2].setFocus();
       }
     } else {
-      // this.pin[index -1 ]._type = "password";
       if(this.pin[index]){
         this.pin[index].setFocus();
       }
