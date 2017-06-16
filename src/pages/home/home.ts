@@ -22,6 +22,7 @@ export class HomePage {
   nextApt: string; 
   patient: any;
   today: any;
+  lastCompleted: any;
   streak: any;
   logCompleted: boolean;
 
@@ -30,6 +31,7 @@ export class HomePage {
     this.nextApt =  window.localStorage.getItem("nextApt") || "Not Set"
     this.patient = this.session.patient;
     this.today = this.DateJs.today().toString('M-dd-yyyy');
+    this.lastCompleted = "";
     this.getPatientLog()
     this.updateActivity()
     this.getDeviceToken()
@@ -38,6 +40,11 @@ export class HomePage {
   ionViewDidEnter() {
     var temp = this.session.patient.patientLog[this.today]
     this.remainingExercise = temp.assigned - temp.completed;
+    if(this.session.lastCompleted){
+      if(Date.parse(this.session.lastCompleted).compareTo(Date.parse(this.lastCompleted)) == 1){
+        this.lastCompleted = this.session.lastCompleted;
+      }
+    }
   }
 
   getPatientLog() {
@@ -45,6 +52,7 @@ export class HomePage {
     this.session.getPatientLog(this.patient.access_token, this.patient.AccountType, this.patient.attributes.PatientLogID)
     .then(data => {
       this.session.patient.patientLog = JSON.parse(atob(data._body))
+      this.lastCompleted = this.session.patient.patientLog.lastDate;
       if(!this.session.patient.patientLog[this.today]){
          this.session.patient.patientLog[this.today] =
          {
@@ -55,10 +63,19 @@ export class HomePage {
         this.logCompleted = false;
         this.session.updatePatientLog(this.patient.access_token, this.patient.AccountType, this.patient.attributes.PatientLogID)
       }
+
       var today = this.session.patient.patientLog[this.today]
       this.logCompleted = this.session.patient.patientLog[this.today].logCompleted || false;
       this.remainingExercise = (today.assigned - today.completed)
       
+      if(this.session.patient.patientLog[this.today].logins){
+        this.session.patient.patientLog[this.today].logins.push(new Date().toString('hh:mm tt'))
+      }
+      else{
+        this.session.patient.patientLog[this.today].logins = [];
+        this.session.patient.patientLog[this.today].logins.push(new Date().toString('hh:mm tt'))
+      }
+      this.session.updatePatientLog(this.patient.access_token, this.patient.AccountType, this.patient.attributes.PatientLogID)
       
     });
 
@@ -88,18 +105,26 @@ export class HomePage {
       });  
   }
 
+  updateLastCompleted() {
+    this.lastCompleted = new Date().toString('MMM dd hh:mm tt');
+  }
+
   completeAll() {
+    var date = new Date().toString('MMM dd hh:mm tt');
+    this.lastCompleted = date;
+    alert(this.lastCompleted);
      if(!this.session.patient.patientLog[this.today].logCompleted ){
        this.presentLogModal();
      }
      this.session.patient.patientLog[this.today].completed = this.patient.patientLog[this.today].assigned;
+     this.session.patient.patientLog.lastDate = date;
      for (let exercise of this.session.patient.patientLog[this.today].exercises) {
        exercise.completed = true;
        exercise.status = 1;
      }
      this.session.updatePatientLog(this.patient.access_token, this.patient.AccountType, this.patient.attributes.PatientLogID)
      .then(data => {
-       this.remainingExercise = 0;
+       
      });
     
   }

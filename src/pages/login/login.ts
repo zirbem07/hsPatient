@@ -16,6 +16,7 @@ import { ForgotPasswordPage } from '../forgotPassword/forgotPassword';
 export class LoginPage {
   loginForm: FormGroup; 
   email: string;
+  logoLink: string;
   pin: any[];
   @ViewChild('input')  pin1;
   @ViewChild('input2') pin2;
@@ -25,7 +26,8 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, fb: FormBuilder, private session: SessionService) {
     this.email = window.localStorage.getItem("username") || "";
-    
+    this.logoLink = window.localStorage.getItem("logoLink") || "./assets/logo.png";
+
     this.loginForm = fb.group({
       email: [this.email, Validators.required],
       password: ["", Validators.required]
@@ -48,6 +50,7 @@ export class LoginPage {
                 var patient = this.session.patient
                 this.session.getUserAttributes(patient.access_token, patient.AccountType, patient.user_id)
                 .then(attr =>  {
+                  this.session.checkBranding(this.session.patient.attributes.ClinicID)
                   this.navCtrl.setRoot(HomePage)
                                   
                 })
@@ -66,7 +69,6 @@ export class LoginPage {
         this.pin[index - 2].setFocus();
       }
     } else {
-      // this.pin[index -1 ]._type = "password";
       if(this.pin[index]){
         this.pin[index].setFocus();
       }

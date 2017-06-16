@@ -10,6 +10,7 @@ import { Patient } from '../app/patient';
 export class SessionService {
     private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
     public patient: Patient;
+    public lastCompleted: any;
     constructor(public http: Http){ }
     
     
@@ -174,6 +175,18 @@ export class SessionService {
         return this.http
             .get("https://healthconnection.io/hcAPI/web/index.php/api/v1/activateAccount/" + code)
             .toPromise()
+    }
+
+    checkBranding(clinicID: number) {
+        this.http
+            .get("https://healthconnection.io/hcAPI/web/index.php/api/v1/branding/" +  clinicID)
+            .toPromise().then(brandingData => {
+                brandingData = brandingData.json();
+                console.log(brandingData)
+                if(brandingData[0]){
+                    window.localStorage.setItem("logoLink", brandingData[0].LogoLink)
+                }
+            })
     }
 
     setPin(userID: string, pin: string): Promise<any> {

@@ -9,9 +9,12 @@ export class LogModal {
 
  feeling: number;
  pain: number;
+ logoLink: string;
  gettingBetter: boolean;
 
  constructor(public viewCtrl: ViewController) {
+    this.logoLink = window.localStorage.getItem("logoLink") || "./assets/logo.png";
+
     this.feeling = 5;
     this.pain = 5;
     this.gettingBetter = true;

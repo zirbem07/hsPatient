@@ -1,5 +1,7 @@
 <ion-content padding>
-    <img src="./assets/icon.png" width="50%" style="margin: auto; display: block; padding-top: 80px">
+    <div style="margin-top: 30%; margin-bottom: 10%;">
+        <img [src]="logoLink" width="90%" style="margin: auto; display: block;">
+    </div>
     <form [formGroup]="loginForm" (submit)="login($event)">
         <ion-item style="border: 0">
                 <ion-label floating>Email</ion-label>
@@ -19,15 +21,6 @@
                     <ion-input  type="tel" class="pin-input" maxlength="1"  #input4 (keyup)="nextInput($event,4)"></ion-input>
                 </ion-col>
             </ion-row>
-        <!--<ion-list style="margin-top: 25px">
-            
-
-            <ion-item>
-                <ion-label floating>Pin</ion-label>
-                <ion-input #input [formControl]="loginForm.controls['password']" type="tel"></ion-input>
-            </ion-item>
-
-        </ion-list>  -->
         <button ion-button block type="submit">Login</button>
     </form>
     <ion-row>

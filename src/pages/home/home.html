@@ -44,7 +44,7 @@
       <button style="padding: 0px" (click)="getAssignedExercises()">
         <img class="big-button" src="assets/blueExercise.jpeg"  />
         <div class="card-title">Start Exercises</div>
-        <div class="card-subtitle">{{remainingExercise}} Remaining</div>
+        <div class="card-subtitle">Last Completed: {{lastCompleted}}</div>
       </button>
       <ion-row>
     
@@ -53,7 +53,7 @@
             <ion-icon name='checkmark-circle-outline'></ion-icon>
               Complete All Exercises
           </button>
-          <button *ngIf="!remainingExercise" ion-button clear small color="primary" icon-left>
+          <button *ngIf="!remainingExercise" ion-button clear small color="primary" icon-left (click)="updateLastCompleted()">
             <ion-icon name='checkmark-circle'></ion-icon>
                All Exercises Complete
           </button>

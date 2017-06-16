@@ -45,6 +45,7 @@ export class EnterAccessCodePage {
         .then(data => {
             data = data.json();
             if(data[0]){
+              this.session.checkBranding(data[0].ClinicID)
               this.navCtrl.push(SetPinPage, {Email: data[0].Email})
             }
             else{
