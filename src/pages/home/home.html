@@ -49,8 +49,8 @@
       <ion-row>
     
         <ion-col text-right>
-          <button ion-button clear small color="danger" icon-left (click)="completeAll()">
-            <ion-icon *ngIf="remainingExercise" name='checkmark-circle-outline'></ion-icon>
+          <button *ngIf="remainingExercise" ion-button clear small color="danger" icon-left (click)="completeAll()">
+            <ion-icon name='checkmark-circle-outline'></ion-icon>
               Complete All Exercises
           </button>
           <button *ngIf="!remainingExercise" ion-button clear small color="primary" icon-left (click)="updateLastCompleted()">
