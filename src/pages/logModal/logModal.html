@@ -14,7 +14,7 @@
           How are you feeling?
         </ion-list-header>
         <ion-item>
-          <ion-range [(ngModel)]="feeling" step="1" snaps="true" min="1" max="10">
+          <ion-range [(ngModel)]="feeling" step="1" snaps="true" min="1" max="10" color="{{themeColor}}">
             <ion-icon range-left  name="sad-outline"></ion-icon>
             <ion-icon range-right name="happy-outline"></ion-icon>
           </ion-range>
@@ -23,7 +23,7 @@
           Rate your pain on a scale from 1 to 10.
         </ion-list-header>
         <ion-item>
-          <ion-range [(ngModel)]="pain" step="1" snaps="true" min="1" max="10">
+          <ion-range [(ngModel)]="pain" step="1" snaps="true" min="1" max="10" color="{{themeColor}}">
             <ion-icon range-left  name="sad-outline"></ion-icon>
             <ion-icon range-right name="happy-outline"></ion-icon>
           </ion-range>
@@ -32,9 +32,9 @@
           <ion-label *ngIf="gettingBetter">I am getting better.</ion-label>
           <ion-label *ngIf="!gettingBetter">I am NOT getting better.</ion-label>
 
-          <ion-toggle [(ngModel)]="gettingBetter" checked="true"></ion-toggle>
+          <ion-toggle [(ngModel)]="gettingBetter" checked="true" color="{{themeColor}}"></ion-toggle>
         </ion-item>
       </ion-list>
-      <button ion-button block (click)="submitLog()">Update My Log</button>
+      <button ion-button block (click)="submitLog()" color="{{themeColor}}">Update My Log</button>
       
 </ion-content>

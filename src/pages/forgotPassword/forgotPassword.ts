@@ -14,6 +14,7 @@ import { EnterAccessCodePage } from '../enterAccessCode/enterAccessCode';
 
 export class ForgotPasswordPage {
   forgotForm: FormGroup; 
+  themeColor: any;
   type: any = 'forgotPassword';
      
 
@@ -21,6 +22,8 @@ export class ForgotPasswordPage {
     this.forgotForm = fb.group({
       email: ["", Validators.required]
     });
+
+    this.themeColor = window.localStorage.getItem("clinicID") || "primary";
 
     if(navParams.get('type')){
       this.type = 'getActivationCode';

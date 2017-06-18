@@ -25,10 +25,12 @@ export class HomePage {
   lastCompleted: any;
   streak: any;
   logCompleted: boolean;
+  themeColor: any;
 
   constructor(public navCtrl: NavController, private session: SessionService, private exercise: ExerciseService, private alertCtrl: AlertController, public modalCtrl: ModalController, public push: Push) {
     this.streak = window.localStorage.getItem("streak") || 1;
     this.nextApt =  window.localStorage.getItem("nextApt") || "Not Set"
+    this.themeColor = window.localStorage.getItem("clinicID") || "primary";
     this.patient = this.session.patient;
     this.today = this.DateJs.today().toString('M-dd-yyyy');
     this.lastCompleted = "";
@@ -112,7 +114,6 @@ export class HomePage {
   completeAll() {
     var date = new Date().toString('MMM dd hh:mm tt');
     this.lastCompleted = date;
-    alert(this.lastCompleted);
      if(!this.session.patient.patientLog[this.today].logCompleted ){
        this.presentLogModal();
      }

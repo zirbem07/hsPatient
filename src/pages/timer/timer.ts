@@ -11,8 +11,10 @@ export class TimerComponent {
     @Input() timeInSeconds: number;
     public timer: ITimer;
     public time: number;
+    themeColor: any;
     
     constructor() {
+        this.themeColor = window.localStorage.getItem("clinicID") || "primary";
     }
     
     ngOnInit() {

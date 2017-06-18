@@ -185,6 +185,7 @@ export class SessionService {
                 console.log(brandingData)
                 if(brandingData[0]){
                     window.localStorage.setItem("logoLink", brandingData[0].LogoLink)
+                    window.localStorage.setItem("clinicID", brandingData[0].ClinicID)
                 }
             })
     }

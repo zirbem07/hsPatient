@@ -18,6 +18,7 @@ export class LoginPage {
   email: string;
   logoLink: string;
   pin: any[];
+  themeColor: any;
   @ViewChild('input')  pin1;
   @ViewChild('input2') pin2;
   @ViewChild('input3') pin3 ;
@@ -25,6 +26,8 @@ export class LoginPage {
      
 
   constructor(public navCtrl: NavController, fb: FormBuilder, private session: SessionService) {
+    this.themeColor = window.localStorage.getItem("clinicID") || "primary";
+
     this.email = window.localStorage.getItem("username") || "";
     this.logoLink = window.localStorage.getItem("logoLink") || "./assets/logo.png";
 

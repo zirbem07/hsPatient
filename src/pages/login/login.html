@@ -21,11 +21,11 @@
                     <ion-input  type="tel" class="pin-input" maxlength="1"  #input4 (keyup)="nextInput($event,4)"></ion-input>
                 </ion-col>
             </ion-row>
-        <button ion-button block type="submit">Login</button>
+        <button ion-button block type="submit" color="{{themeColor}}">Login</button>
     </form>
     <ion-row>
         <ion-col>
-            <button style="margin: auto; display: block" (click)="forgotPassword()" ion-button color="primary" clear>Forgot Pin</button>
+            <button style="margin: auto; display: block" (click)="forgotPassword()" ion-button color="{{themeColor}}" clear>Forgot Pin</button>
         </ion-col>
     </ion-row>
 </ion-content>
