@@ -16,6 +16,7 @@ import { TimerComponent } from '../pages/timer/timer';
 import { SetPinPage } from '../pages/setPin/setPin';
 import { EnterAccessCodePage } from '../pages/enterAccessCode/enterAccessCode';
 import { PasswordLoginPage } from '../pages/passwordLogin/passwordLogin';
+import { FeedbackModal } from '../pages/feedbackModal/feedbackModal';
 
 
 const cloudSettings: CloudSettings = {
@@ -54,7 +55,8 @@ const cloudSettings: CloudSettings = {
     TimerComponent,
     SetPinPage,
     EnterAccessCodePage,
-    PasswordLoginPage
+    PasswordLoginPage,
+    FeedbackModal
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -76,7 +78,8 @@ const cloudSettings: CloudSettings = {
     TimerComponent,
     SetPinPage,
     EnterAccessCodePage,
-    PasswordLoginPage
+    PasswordLoginPage,
+    FeedbackModal
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

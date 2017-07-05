@@ -1,10 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { NavController, Platform } from 'ionic-angular';
+import { NavController, Platform, ModalController } from 'ionic-angular';
 import { ExerciseService }  from '../../services/exerciseService';
 import { SessionService } from '../../services/sessionService';
 import { Exercise }  from '../../models/exercise';
 import { TimerComponent } from '../timer/timer'
+import { FeedbackModal } from '../feedbackModal/feedbackModal'
+
 import 'datejs';
 
 
@@ -47,7 +49,7 @@ export class ExercisePage {
 
   @ViewChild(TimerComponent) timer: TimerComponent;
 
-  constructor(public navCtrl: NavController, public plt: Platform, private session: SessionService, private exercise: ExerciseService) {
+  constructor(public navCtrl: NavController, public plt: Platform, private session: SessionService, private exercise: ExerciseService, public modalCtrl: ModalController) {
     this.exercises = exercise.exercises;
     this.patient = session.patient;
     this.today = this.DateJs.today().toString('M-dd-yyyy')
@@ -102,9 +104,26 @@ export class ExercisePage {
     }
     this.session.lastCompleted = new Date().toString('MMM dd hh:mm tt');
     this.session.patient.patientLog.lastDate = new Date().toString('MMM dd hh:mm tt');
+    
+    if(status == -1){
+      this.presentFeedbackModal();
+    }
 
     this.session.updatePatientLog(this.patient.access_token, this.patient.AccountType, this.patient.attributes.PatientLogID)
     this.checkCompleted();
+  }
+
+  presentFeedbackModal(){
+    let feedbackModal = this.modalCtrl.create(FeedbackModal);
+    feedbackModal.onDidDismiss(data => {
+      if(data){
+        console.log(data);
+        
+        this.session.SubmitFeedback(this.patient.access_token, this.patient.AccountType, data.message, this.selectedExercise.Name, this.session.patient.attributes.PatientID, this.session.patient.attributes.ClinicID, new Date().toString('MMM dd hh:mm tt'))
+        
+      }
+    });
+    feedbackModal.present();
   }
 
   selectExercise(exercise) {

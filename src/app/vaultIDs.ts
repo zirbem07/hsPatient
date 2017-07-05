@@ -31,7 +31,10 @@ export const VaultID: any = {
        EmailNotificationLink: 'healthconnection.io/hcMailgun/EmailNotification.php',
 
        PatientVideo: 'f5d33810-44b5-4a3f-9362-7441724b5833',
-       PatientImg: '3c0a526e-5d43-43e5-b546-17cb3bc79bcf'
+       PatientImg: '3c0a526e-5d43-43e5-b546-17cb3bc79bcf',
+
+       FeedbackVault: '8a770aea-7246-478f-929b-17c572c76b2a',
+       FeedbackSchema: '11aa3ef8-bd49-4bab-9a93-11c7a933879b'
 
       },
       //Dev
