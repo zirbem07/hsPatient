@@ -190,6 +190,44 @@ export class SessionService {
             })
     }
 
+    SubmitFeedback(token: string, accountType: string, message: string, exerciseName: string, patientID: string, clinicID: number, timeStamp: string){
+        console.log('feedback');
+        console.log(message)
+        console.log(exerciseName)
+        console.log(patientID)
+        console.log(clinicID)
+        console.log(timeStamp)
+        const headers = new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + btoa(token + ':')
+        })
+        const url = 'https://api.truevault.com/v1/vaults/' + VaultID[accountType].FeedbackVault + '/documents'
+        var data = JSON.stringify({
+            Seen: false,
+            ExerciseName: exerciseName,
+            PatientID: patientID,
+            ClinicID: clinicID,
+            Message: message,
+            Timestamp: timeStamp
+        });
+
+        return this.http
+            .post(url, this.formatData({document: btoa(data), schema_id: VaultID[accountType].FeedbackSchema}), {headers: headers})
+            .toPromise()
+            .then(res => {
+                console.log(res)
+            });
+    }
+
+    submitReview(email: string, rating: number, review: string, clinicID: number){
+        this.http
+            .post("https://healthconnection.io/hcAPI/web/index.php/api/v1/review", {email: email, rating: rating, review: review, clinicID: clinicID})
+            .toPromise()
+            .then(data => {
+            
+            })
+    }
+
     setPin(userID: string, pin: string): Promise<any> {
         const url = 'https://healthconnection.io/hcPassword/php/setPasswordFromApp.php'
         return this.http

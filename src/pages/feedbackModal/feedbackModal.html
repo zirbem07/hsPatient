@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+        <button ion-button icon-only (click)=close(); color="dark">
+            <ion-icon name="ios-close"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="log-modal" padding>
+    <img [src]="logoLink" width="50%" style="margin: auto; display: block">
+    <ion-list style="padding-top: 25px">
+        <ion-item>
+            <ion-label color="{{themeColor}}" stacked>Let your therapist know whats going on</ion-label>
+            <ion-textarea [value]="message" [(ngModel)]="message"></ion-textarea>
+        </ion-item>
+    </ion-list>
+    <button ion-button block (click)="submitFeedback()" color="{{themeColor}}">Submit Feedback</button>
+      
+</ion-content>
