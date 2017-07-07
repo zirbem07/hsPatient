@@ -21,13 +21,12 @@ export class LoginPage {
   themeColor: any;
   @ViewChild('input')  pin1;
   @ViewChild('input2') pin2;
-  @ViewChild('input3') pin3 ;
+  @ViewChild('input3') pin3;
   @ViewChild('input4') pin4;
      
 
   constructor(public navCtrl: NavController, fb: FormBuilder, private session: SessionService) {
     this.themeColor = window.localStorage.getItem("clinicID") || "primary";
-
     this.email = window.localStorage.getItem("username") || "";
     this.logoLink = window.localStorage.getItem("logoLink") || "./assets/logo.png";
 
