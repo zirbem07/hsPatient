@@ -219,6 +219,15 @@ export class SessionService {
             });
     }
 
+    submitReview(email: string, rating: number, review: string, clinicID: number){
+        this.http
+            .post("https://healthconnection.io/hcAPI/web/index.php/api/v1/review", {email: email, rating: rating, review: review, clinicID: clinicID})
+            .toPromise()
+            .then(data => {
+            
+            })
+    }
+
     setPin(userID: string, pin: string): Promise<any> {
         const url = 'https://healthconnection.io/hcPassword/php/setPasswordFromApp.php'
         return this.http

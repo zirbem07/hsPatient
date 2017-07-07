@@ -9,6 +9,7 @@ import { SettingsPage } from '../settings/settings'
 import { ExercisePage } from '../exercise/exercise'
 import { LogModal } from '../logModal/logModal'
 import { AnalyticsPage } from '../analytics/analytics' 
+import { ReviewModal } from '../reviewModal/reviewModal'
 import 'datejs'
 
 @Component({
@@ -26,9 +27,11 @@ export class HomePage {
   streak: any;
   logCompleted: boolean;
   themeColor: any;
+  reviewed: any;
 
   constructor(public navCtrl: NavController, private session: SessionService, private exercise: ExerciseService, private alertCtrl: AlertController, public modalCtrl: ModalController, public push: Push) {
     this.streak = window.localStorage.getItem("streak") || 1;
+    this.reviewed = window.localStorage.getItem("reviewed") || false;
     this.nextApt =  window.localStorage.getItem("nextApt") || "Not Set"
     this.themeColor = window.localStorage.getItem("clinicID") || "primary";
     this.patient = this.session.patient;
@@ -37,6 +40,9 @@ export class HomePage {
     this.getPatientLog()
     this.updateActivity()
     this.getDeviceToken()
+    if(this.streak == 2 && this.reviewed == false){
+      this.presentReviewModal()
+    }
   }
 
   ionViewDidEnter() {
@@ -145,6 +151,7 @@ export class HomePage {
    let logModal = this.modalCtrl.create(LogModal);
    logModal.onDidDismiss(data => {
      if(data){
+       console.log(data)
       this.session.patient.patientLog[this.today].feeling = data.feeling;
       this.session.patient.patientLog[this.today].pain = 10 - data.pain + 1;
       this.session.patient.patientLog[this.today].gettingBetter = data.gettingBetter;
@@ -154,6 +161,11 @@ export class HomePage {
       .then(data => {
 
       });
+
+      if(data.gettingBetter == false){
+        this.session.SubmitFeedback(this.patient.access_token, this.patient.AccountType, 'I am NOT feeling better', 'Patient Update Log Feedback', this.session.patient.attributes.PatientID, this.session.patient.attributes.ClinicID, new Date().toString('MMM dd hh:mm tt'))
+      }
+
      }
    });
    logModal.present();
@@ -204,6 +216,18 @@ export class HomePage {
       ]
     });
     alert.present();
+  }
+
+  presentReviewModal(){
+    let reviewModal = this.modalCtrl.create(ReviewModal);
+    reviewModal.onDidDismiss(data => {
+      if(data){
+        window.localStorage.setItem("reviewed", 'true');
+        console.log(data)
+        this.session.submitReview(this.session.patient.attributes.Email, data.rating, data.message, this.session.patient.attributes.ClinicID);
+      }
+    });
+    reviewModal.present();
   }
 
   toSettings() {

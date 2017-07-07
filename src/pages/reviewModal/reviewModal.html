@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+        <button ion-button icon-only (click)=close(); color="dark">
+            <ion-icon name="ios-close"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="log-modal center" padding>
+    <img [src]="logoLink" width="50%" style="margin: auto; display: block">
+    <ion-row text-center padding-top>
+        <h3>How would you rate your physical therapy?</h3>
+    </ion-row>
+    <ion-row style="display: flex; justify-content: center;">
+        <rating
+            [(ngModel)]="rate" 
+            readOnly="false" 
+            max="5"
+            emptyStarIconName="star-outline"
+            halfStarIconName="star-half"
+            starIconName="star"
+            nullable="false">
+        </rating>
+    </ion-row>
+    <ion-list style="padding-top: 25px">
+        <ion-item>
+            <ion-label color="{{themeColor}}" stacked>Any Additional Comments</ion-label>
+            <ion-textarea [value]="review" [(ngModel)]="review"></ion-textarea>
+        </ion-item>
+    </ion-list>
+    <button ion-button block (click)="submitReview()" color="{{themeColor}}">Submit</button>
+      
+</ion-content>
