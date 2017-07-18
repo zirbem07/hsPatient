@@ -93,7 +93,7 @@ export class HomePage {
     if(this.session.patient.attributes.LastActive !== this.DateJs.today().toString("yyyy-MM-dd")){
       if(this.session.patient.attributes.LastActive === this.DateJs.today().addDays(-1).toString("yyyy-MM-dd")){
         this.streak = parseInt(this.streak) + 1;
-        window.localStorage.setItem("steak", this.streak + "");
+        window.localStorage.setItem("streak", this.streak + "");
       } else {
         window.localStorage.setItem("streak", "1");
       }

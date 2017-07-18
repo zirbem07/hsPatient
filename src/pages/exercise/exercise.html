@@ -8,19 +8,23 @@
 
 <ion-content>
   <ion-row>
-    <ion-col style="margin: auto; display: block">
+    <ion-col class="exercise-title" text-center>{{selectedExercise.Name}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col style="margin: auto; display: block;">
       <!--<img class="exercise-img" [src]="selectedExercise.Img" width="120px" height="120px">-->
       <video id="myVideo" #video allowfullscreen controls="controls" preload="auto" [src]="selectedExercise.Video" class="exercise-img" on-play="videoPlay()" on-pause="videoPause()" on-ended="videoEnd()" poster="{{selectedExercise.Img}}" width="180px" height="180px">
 
       </video>
     </ion-col>
-    <ion-col *ngIf="showText">
-      <ion-row>
+    <ion-col *ngIf="showText" style="width: 45%">
+      <timer style="width: 50%" #timer ng-if="selectedExercise.Hold" [timeInSeconds]="selectedExercise.Hold"></timer>
+      <!--<ion-row>
         <span class="exercise-title">{{selectedExercise.Name}}</span>
       </ion-row>
       <ion-row>
-        <span class="exercise-body">{{selectedExercise.Description}}</span>
-      </ion-row>
+        <span class="exercise-body" style="display: block" [innerHTML]="selectedExercise.Description"></span>
+      </ion-row>-->
     </ion-col>
 
   </ion-row>
@@ -38,7 +42,10 @@
       <p class="exerciseInfo-desc">Per Day</p>
     </ion-col>
   </ion-row>
-  <timer #timer ng-if="selectedExercise.Hold" [timeInSeconds]="selectedExercise.Hold"></timer>
+  <ion-card *ngIf="selectedExercise.Description">
+    <p class="exercise-body" [innerHTML]="selectedExercise.Description"></p>
+  </ion-card>
+  <!--<timer #timer ng-if="selectedExercise.Hold" [timeInSeconds]="selectedExercise.Hold"></timer>-->
   <ion-grid>
     <ion-row>
       <ion-col col-4>

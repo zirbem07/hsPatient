@@ -1,12 +1,9 @@
-<ion-card *ngIf="timer">
-<ion-item class="no-bottom-border item">
-<button ion-button *ngIf="timeInSeconds && timeInSeconds > 0" large full clear class="timer-button timer-text" color="{{themeColor}}">{{timer.displayTime}}</button>
+<div *ngIf="timer" style="margin: 0px">
+<ion-item no-lines style="padding: 0px;">
+<button ion-button *ngIf="timeInSeconds && timeInSeconds > 0" large full clear class="timer-button timer-text" color="{{themeColor}}" style="margin: 0px">{{timer.displayTime}}</button>
 </ion-item>
-<ion-item class="no-bottom-border" *ngIf="timeInSeconds && timeInSeconds > 0">
-<button ion-button icon-left clear color="danger" small (click)="resetTimer()" item-left *ngIf="!timer.runTimer && (timer.hasStarted || timer.hasFinished) || timer.hasFinished">
-<ion-icon name="refresh"></ion-icon>
-Reset
-</button>
+<ion-item no-lines *ngIf="timeInSeconds && timeInSeconds > 0" style="padding: 0px">
+<ion-row>
 <button ion-button icon-left clear small color="{{themeColor}}" (click)="pauseTimer()" item-right *ngIf="timer.runTimer && timer.hasStarted && !timer.hasFinished">
 <ion-icon name="pause"></ion-icon>
 Pause
@@ -19,8 +16,15 @@ Resume
 <ion-icon name="play"></ion-icon>
 Start
 </button>
+</ion-row>
+<ion-row  *ngIf="timeInSeconds && timeInSeconds > 0">
+<button ion-button icon-left clear color="danger" small (click)="resetTimer()" item-left *ngIf="!timer.runTimer && (timer.hasStarted || timer.hasFinished) || timer.hasFinished">
+<ion-icon name="refresh"></ion-icon>
+Reset
+</button>
+</ion-row>
 </ion-item>
-</ion-card>
+</div>
  
 <style>
 .timer-button {

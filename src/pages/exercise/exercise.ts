@@ -56,6 +56,26 @@ export class ExercisePage {
     this.checkCompleted();
     this.getBlobImgs()
     this.selectedExercise = this.exercises[0] || this.noExercises;
+    this.checkForLink()
+    
+  }
+
+  checkForLink(){
+    this.exercises.forEach(function(text){
+      // console.log(text)
+      if(text.Description){
+        var exerciseDescription = text.Description;
+        var urlRegex = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/igm;
+        var newDescription = exerciseDescription.replace(urlRegex, function(url) {
+          if(url.substr(0,3).toLowerCase()  == 'www'){
+            url = 'http://' + url;
+          }
+          // console.log('<a href="' + url + '">' + url + '</a>')
+          return '<a href="' + url + '" target="_system">' + url + '</a>';
+        })
+        text.Description = newDescription;
+      }
+    })
   }
 
   checkCompleted(){
