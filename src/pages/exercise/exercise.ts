@@ -51,6 +51,7 @@ export class ExercisePage {
 
   constructor(public navCtrl: NavController, public plt: Platform, private session: SessionService, private exercise: ExerciseService, public modalCtrl: ModalController) {
     this.exercises = exercise.exercises;
+
     this.patient = session.patient;
     this.today = this.DateJs.today().toString('M-dd-yyyy')
     this.checkCompleted();

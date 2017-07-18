@@ -34,7 +34,7 @@ export class HomePage {
     this.reviewed = window.localStorage.getItem("reviewed") || false;
     this.nextApt =  window.localStorage.getItem("nextApt") || "Not Set"
     this.themeColor = window.localStorage.getItem("clinicID") || "primary";
-    this.patient = this.session.patient;
+    this.patient = this.session.patient;   
     this.today = this.DateJs.today().toString('M-dd-yyyy');
     this.lastCompleted = "";
     this.getPatientLog()
@@ -138,6 +138,7 @@ export class HomePage {
 
   getAssignedExercises() {
     if(!this.exercise.exercises[0]){
+      console.log(this.patient.user_id)
       this.exercise.getAssignedExercises(this.patient.access_token, this.patient.AccountType, this.patient.user_id)
       .then(exercises => {
         this.navCtrl.push(ExercisePage);
