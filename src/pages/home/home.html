@@ -61,13 +61,13 @@
       </ion-row>
     </ion-card>
 
-     <ion-card  >
-       <button style="padding: 0px" (click)="toAnalytics()">
-        <img class="big-button" src="assets/progress.jpeg"/>
-        <div class="card-title">My Progress</div>
-        <div class="card-subtitle">{{streak}} Day Streak</div>
+     <ion-card>
+       <button style="padding: 0px" (click)="presentMessageModal()">
+        <img class="big-button" src="assets/messaging.jpg"/>
+        <div class="card-title">Messages</div>
+        <div class="card-subtitle">{{streak}} Unread Messages</div>
       </button>
-      <ion-row>
+      <!-- <ion-row>
        <ion-col text-right>
           <button *ngIf="!logCompleted"ion-button clear small color="danger" icon-left (click)="presentLogModal()">
             <ion-icon name='md-bookmarks'></ion-icon>
@@ -78,7 +78,7 @@
                <span color="{{themeColor}}">Log Updated</span>
           </button>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
     </ion-card>
 
     <!--<ion-card class="big-button">

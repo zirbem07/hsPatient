@@ -19,6 +19,7 @@ import { PasswordLoginPage } from '../pages/passwordLogin/passwordLogin';
 import { FeedbackModal } from '../pages/feedbackModal/feedbackModal';
 import { ReviewModal } from '../pages/reviewModal/reviewModal';
 import { Ionic2RatingModule } from 'ionic2-rating';
+import { SessionService } from '../services/sessionService';
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -85,6 +86,6 @@ const cloudSettings: CloudSettings = {
     FeedbackModal,
     ReviewModal
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, SessionService]
 })
 export class AppModule {}

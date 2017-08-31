@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { NavController, Platform, ModalController } from 'ionic-angular';
+import { NavController, Platform, ModalController, ToastController } from 'ionic-angular';
 import { ExerciseService }  from '../../services/exerciseService';
 import { SessionService } from '../../services/sessionService';
 import { Exercise }  from '../../models/exercise';
@@ -49,7 +49,7 @@ export class ExercisePage {
 
   @ViewChild(TimerComponent) timer: TimerComponent;
 
-  constructor(public navCtrl: NavController, public plt: Platform, private session: SessionService, private exercise: ExerciseService, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public plt: Platform, private session: SessionService, private exercise: ExerciseService, public modalCtrl: ModalController, private toastCtrl: ToastController) {
     this.exercises = exercise.exercises;
 
     this.patient = session.patient;
@@ -127,7 +127,9 @@ export class ExercisePage {
     this.session.patient.patientLog.lastDate = new Date().toString('MMM dd hh:mm tt');
     
     if(status == -1){
-      this.presentFeedbackModal();
+      this.session.SendMessage(this.patient.access_token, this.patient.AccountType, 'Reported Severe Pain', this.selectedExercise.Name, this.session.patient.attributes.PatientID, this.session.patient.attributes.ClinicID, new Date().toString('MMM dd hh:mm tt'))
+
+      this.presentToast();
     }
 
     this.session.updatePatientLog(this.patient.access_token, this.patient.AccountType, this.patient.attributes.PatientLogID)
@@ -191,6 +193,34 @@ export class ExercisePage {
       video.style.width = "180px";
       video.style.height = "180px";
     }
+  }
+
+  presentToast() {
+    let duration:number = 5000;
+    let elapsedTime:number = 0;
+    let intervalHandler = setInterval( () => { elapsedTime += 10; },10);    
+    let toast = this.toastCtrl.create({
+      message: "Pain Alert Sent.",
+      duration: duration,
+      showCloseButton: true,
+      closeButtonText: "Click To Send Message"
+    });
+    
+  toast.onDidDismiss(() => {
+      clearInterval(intervalHandler);
+      if(elapsedTime < duration ){
+          console.log("Toast button clicked");
+          let feedbackModal = this.modalCtrl.create(FeedbackModal, {patient: this.patient});
+          feedbackModal.onDidDismiss(data => {
+            if(data){
+
+            }
+          });
+          feedbackModal.present();
+      }
+    });
+
+  toast.present();
   }
 
 }

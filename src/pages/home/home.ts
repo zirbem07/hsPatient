@@ -8,6 +8,7 @@ import { ExerciseService } from '../../services/exerciseService';
 import { SettingsPage } from '../settings/settings'
 import { ExercisePage } from '../exercise/exercise'
 import { LogModal } from '../logModal/logModal'
+import { FeedbackModal } from '../feedbackModal/feedbackModal'
 import { AnalyticsPage } from '../analytics/analytics' 
 import { ReviewModal } from '../reviewModal/reviewModal'
 import 'datejs'
@@ -30,11 +31,13 @@ export class HomePage {
   reviewed: any;
 
   constructor(public navCtrl: NavController, private session: SessionService, private exercise: ExerciseService, private alertCtrl: AlertController, public modalCtrl: ModalController, public push: Push) {
-    this.streak = window.localStorage.getItem("streak") || 1;
+    
     this.reviewed = window.localStorage.getItem("reviewed") || false;
     this.nextApt =  window.localStorage.getItem("nextApt") || "Not Set"
     this.themeColor = window.localStorage.getItem("clinicID") || "primary";
-    this.patient = this.session.patient;   
+    this.patient = this.session.patient; 
+    this.streak = this.patient.attributes.MessagesForPatient || 0;
+
     this.today = this.DateJs.today().toString('M-dd-yyyy');
     this.lastCompleted = "";
     this.getPatientLog()
@@ -148,6 +151,17 @@ export class HomePage {
     }
   }
 
+  presentMessageModal() {
+   let feedbackModal = this.modalCtrl.create(FeedbackModal, {patient: this.patient});
+   feedbackModal.onDidDismiss(data => {
+     this.streak = 0;
+     if(data){
+
+    }
+   });
+   feedbackModal.present();
+  }
+
   presentLogModal() {
    let logModal = this.modalCtrl.create(LogModal);
    logModal.onDidDismiss(data => {
@@ -164,7 +178,8 @@ export class HomePage {
       });
 
       if(data.gettingBetter == false){
-        this.session.SubmitFeedback(this.patient.access_token, this.patient.AccountType, 'I am NOT feeling better', 'Patient Update Log Feedback', this.session.patient.attributes.PatientID, this.session.patient.attributes.ClinicID, new Date().toString('MMM dd hh:mm tt'))
+        // this.session.SubmitFeedback(this.patient.access_token, this.patient.AccountType, 'I am NOT feeling better', 'Patient Update Log Feedback', this.session.patient.attributes.PatientID, this.session.patient.attributes.ClinicID, new Date().toString('MMM dd hh:mm tt'))
+        this.session.SendMessage(this.patient.access_token, this.patient.AccountType, 'I am NOT feeling better', 'Patient Update Log Feedback', this.session.patient.attributes.PatientID, this.session.patient.attributes.ClinicID, new Date().toString('MMM dd hh:mm tt'))
       }
 
      }
