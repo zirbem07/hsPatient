@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.hchep.hcpatients" version="2.0.15" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.hchep.hcpatients" version="2.0.17" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Health Snaps Patient</name>
     <description>Exercise and Analytics app.</description>
     <author email="admin@healthsnaps.com" href="https://healthsnaps.com/">Health Snaps</author>

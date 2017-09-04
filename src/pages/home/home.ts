@@ -93,7 +93,7 @@ export class HomePage {
     if(this.session.patient.attributes.LastActive !== this.DateJs.today().toString("yyyy-MM-dd")){
       if(this.session.patient.attributes.LastActive === this.DateJs.today().addDays(-1).toString("yyyy-MM-dd")){
         this.streak = parseInt(this.streak) + 1;
-        window.localStorage.setItem("steak", this.streak + "");
+        window.localStorage.setItem("streak", this.streak + "");
       } else {
         window.localStorage.setItem("streak", "1");
       }
@@ -138,7 +138,6 @@ export class HomePage {
 
   getAssignedExercises() {
     if(!this.exercise.exercises[0]){
-      console.log(this.patient.user_id)
       this.exercise.getAssignedExercises(this.patient.access_token, this.patient.AccountType, this.patient.user_id)
       .then(exercises => {
         this.navCtrl.push(ExercisePage);
@@ -152,7 +151,6 @@ export class HomePage {
    let logModal = this.modalCtrl.create(LogModal);
    logModal.onDidDismiss(data => {
      if(data){
-       console.log(data)
       this.session.patient.patientLog[this.today].feeling = data.feeling;
       this.session.patient.patientLog[this.today].pain = 10 - data.pain + 1;
       this.session.patient.patientLog[this.today].gettingBetter = data.gettingBetter;
