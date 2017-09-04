@@ -80,9 +80,11 @@ export class TimerComponent {
         var hoursString = '';
         var minutesString = '';
         var secondsString = '';
-        hoursString = (hours < 10) ? "0" + hours : hours.toString();
-        minutesString = (minutes < 10) ? "0" + minutes : minutes.toString();
+        // hoursString = (hours < 10) ? "0" + hours : hours.toString();
+        minutesString = (minutes < 10) ? "" + minutes : minutes.toString();
         secondsString = (seconds < 10) ? "0" + seconds : seconds.toString();
-        return hoursString + ':' + minutesString + ':' + secondsString;
+        return minutesString + ':' + secondsString;
+
+        // return hoursString + ':' + minutesString + ':' + secondsString;
     }
 }

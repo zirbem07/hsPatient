@@ -4,12 +4,14 @@ import 'rxjs/add/operator/toPromise';
 
 import { VaultID } from '../app/vaultIDs';
 import { Patient } from '../app/patient';
+import { ChatMessage } from '../app/chatMessage';
 
 
 @Injectable()
 export class SessionService {
     private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
     public patient: Patient;
+    public messages: ChatMessage[] = [];
     public lastCompleted: any;
     constructor(public http: Http){ }
     
@@ -124,6 +126,24 @@ export class SessionService {
 
         return this.http
             .put(url, this.formatData({document: btoa(JSON.stringify(this.patient.attributes)), schema_id: VaultID[accountType].PatientSchema}), {headers: headers})
+            .toPromise()
+            
+    }
+
+    updateMessages(patient: Patient, token: string, accountType: string, userID: string, messagesForTherapist: number): Promise<any> {
+        const url = 'https://api.truevault.com/v1/vaults/'+ VaultID[accountType].PatientVault +'/documents/' + userID
+        const headers = new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + btoa(token + ':')
+        })
+        
+        console.log(patient);
+
+        patient.attributes.MessagesForPatient = 0;
+        patient.attributes.MessagesForTherapist = messagesForTherapist;
+
+        return this.http
+            .put(url, this.formatData({document: btoa(JSON.stringify(patient.attributes)), schema_id: VaultID[accountType].PatientSchema}), {headers: headers})
             .toPromise()
             
     }
@@ -259,6 +279,93 @@ export class SessionService {
             {headers: headers})
         .toPromise()
         
+    }
+
+    getMessages(token: string, accountType: string, userID: string): Promise<any> {
+       
+        const headers = new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + btoa(token + ':')
+        })
+        const url = 'https://api.truevault.com/v1/vaults/' + VaultID[accountType].MessageVault + '/search'
+        var queryParams = JSON.stringify({
+            "filter": {
+                "PatientID": {
+                    "type": "eq",
+                    "value": userID
+                }
+            },
+            "filter_type": 'and',
+            "full_document": true,
+            "schema_id": VaultID[accountType].MessageSchema
+        });
+
+        return this.http
+            .post(url, this.formatData({search_option: btoa(queryParams)}), {headers: headers})
+            .toPromise()
+            .then(res => {
+                for (let item of res.json().data.documents) {
+                    var message = JSON.parse(atob(item.document));
+                    let newMsg: ChatMessage = {
+                        From: message.From,
+                        Timestamp: message.Timestamp,
+                        PatientID: message.PatientID,
+                        Title: message.Title,
+                        Message: message.Message,
+                        ClinicID: message.ClinicID
+                    };
+                    this.messages.push(newMsg);
+                }
+            });
+    }
+
+    SendMessage(token: string, accountType: string, message: string, title: string, patientID: string, clinicID: number, timeStamp: string){
+        const headers = new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + btoa(token + ':')
+        })
+        const url = 'https://api.truevault.com/v1/vaults/' + VaultID[accountType].MessageVault + '/documents'
+        var data = JSON.stringify({
+            From: 'patient',
+            Title: title,
+            PatientID: patientID,
+            ClinicID: clinicID,
+            Message: message,
+            Timestamp: timeStamp
+        });
+
+        return this.http
+            .post(url, this.formatData({document: btoa(data), schema_id: VaultID[accountType].MessageSchema}), {headers: headers})
+            .toPromise()
+            .then(res => {
+                console.log(res)
+            });
+    }
+
+    SendPush(deviceToken){
+        if(deviceToken){
+            const headers = new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3MDVmYjk4YS1jYzcxLTQ2ZGUtOTI4Ny0yMzAxNmUwOWY5MDYifQ.kNZOzKdwhcn1LQX3I6HympQWCxYwuxctI0SGVTVJ3WA'
+                })
+
+
+            var message = "A patient has sent you a message";
+            var tok = [deviceToken];
+            var profile = 'push';
+
+            return this.http
+            .post('https://api.ionic.io/push/notifications', 
+                {
+                    "tokens": tok,
+                    "profile": profile, 
+                    "notification": {
+                        "message": message
+                    }
+                },
+                {headers: headers})
+            .toPromise()
+        }
     }
 
     private handleError(error){

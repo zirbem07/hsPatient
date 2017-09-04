@@ -13,5 +13,8 @@ export interface User {
     Activated: boolean,
     PatientLogID: string,
     deviceToken: string,
-    document_id: string
+    therapistDeviceToken: string,
+    document_id: string,
+    MessagesForPatient: number,
+    MessagesForTherapist: number
 }
