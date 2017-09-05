@@ -74,7 +74,8 @@ export class Chat {
     }
 
     sendMsg() {
-      console.log(this.editorMsg)
+      this.editorMsg = this.editorMsg.replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/, '');
+
       if(this.editorMsg && this.editorMsg != '' ){
         let newMsg: ChatMessage = {
             From: 'patient',
