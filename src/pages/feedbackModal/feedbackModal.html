@@ -69,6 +69,8 @@
         <ion-textarea
                 #chat_input
                 placeholder="Text Input"
+                autocorrect="on"
+                autocomplete="on"
                 [(ngModel)]="editorMsg"
                 (keyup.enter)="sendMsg()"
                 (focus)="_focus()"

@@ -105,6 +105,7 @@ export class FeedbackModal {
     }
 
     sendMsg() {
+      if(this.editorMsg && this.editorMsg != ""){
         const id = Date.now().toString();
         let newMsg: ChatMessage = {
             From: 'patient',
@@ -134,6 +135,7 @@ export class FeedbackModal {
           this.session.SendPush(this.patient.attributes.TherapistDeviceToken);
           this.sentPush = true;
         }
+      }
 
     }
 
