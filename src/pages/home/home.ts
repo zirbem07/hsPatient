@@ -141,7 +141,6 @@ export class HomePage {
 
   getAssignedExercises() {
     if(!this.exercise.exercises[0]){
-      console.log(this.patient.user_id)
       this.exercise.getAssignedExercises(this.patient.access_token, this.patient.AccountType, this.patient.user_id)
       .then(exercises => {
         this.navCtrl.push(ExercisePage);
@@ -166,7 +165,6 @@ export class HomePage {
    let logModal = this.modalCtrl.create(LogModal);
    logModal.onDidDismiss(data => {
      if(data){
-       console.log(data)
       this.session.patient.patientLog[this.today].feeling = data.feeling;
       this.session.patient.patientLog[this.today].pain = 10 - data.pain + 1;
       this.session.patient.patientLog[this.today].gettingBetter = data.gettingBetter;
