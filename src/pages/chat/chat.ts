@@ -1,32 +1,3 @@
-// import { Component } from '@angular/core';
-// import { ViewController } from 'ionic-angular';
-
-// @Component({
-//   templateUrl: 'feedbackModal.html',
-//   selector: 'FeedbackModal'
-// })
-// export class FeedbackModal {
-
-//  message: string;
-//  themeColor: any;
-//  logoLink: any;
-
-//  constructor(public viewCtrl: ViewController) {
-//     this.logoLink = window.localStorage.getItem("logoLink") || "./assets/logo.png";
-//     this.themeColor = window.localStorage.getItem("clinicID") || "primary";
-//  }
-
-//  close() {
-//    this.viewCtrl.dismiss();
-//  }
-
-//  submitFeedback(message) {
-//    let data = { 'message': this.message };
-//    this.viewCtrl.dismiss(data);
-//  }
-
-// }
-
 import {Component, ViewChild} from '@angular/core';
 import {NavParams} from 'ionic-angular';
 import {ViewController, Content, TextInput} from 'ionic-angular';
@@ -35,12 +6,10 @@ import {ChatMessage} from "../../app/chatMessage";
 import {SessionService} from '../../services/sessionService';
 
 @Component({
-  templateUrl: 'feedbackModal.html',
-  selector: 'FeedbackModal',
-  providers: [SessionService]
-
+  templateUrl: 'chat.html',
+  selector: 'Chat'
 })
-export class FeedbackModal {
+export class Chat {
 
     @ViewChild(Content) content: Content;
     @ViewChild('chat_input') messageInput: TextInput;
@@ -55,7 +24,7 @@ export class FeedbackModal {
 
     constructor(public navParams: NavParams, private session: SessionService, public viewCtrl: ViewController) {
 
-      this.patient = navParams.get('patient')
+      this.patient = this.session.patient;
       console.log(session)
       this.getMsg();
       this.markMessagesRead();
@@ -105,8 +74,8 @@ export class FeedbackModal {
     }
 
     sendMsg() {
-      if(this.editorMsg && this.editorMsg != ""){
-        const id = Date.now().toString();
+      console.log(this.editorMsg)
+      if(this.editorMsg && this.editorMsg != '' ){
         let newMsg: ChatMessage = {
             From: 'patient',
             Timestamp: new Date().toString('MMM dd hh:mm tt'),

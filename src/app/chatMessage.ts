@@ -1,5 +1,3 @@
-import { User } from '../models/user';
-
 export class ChatMessage {
     From: string;
     Timestamp: string;

@@ -5,7 +5,7 @@ import { ExerciseService }  from '../../services/exerciseService';
 import { SessionService } from '../../services/sessionService';
 import { Exercise }  from '../../models/exercise';
 import { TimerComponent } from '../timer/timer'
-import { FeedbackModal } from '../feedbackModal/feedbackModal'
+import { Chat } from '../chat/chat'
 
 import 'datejs';
 
@@ -137,16 +137,17 @@ export class ExercisePage {
   }
 
   presentFeedbackModal(){
-    let feedbackModal = this.modalCtrl.create(FeedbackModal);
-    feedbackModal.onDidDismiss(data => {
-      if(data){
-        console.log(data);
+    this.navCtrl.push(Chat);
+    // let feedbackModal = this.modalCtrl.create(FeedbackModal);
+    // feedbackModal.onDidDismiss(data => {
+    //   if(data){
+    //     console.log(data);
         
-        this.session.SubmitFeedback(this.patient.access_token, this.patient.AccountType, data.message, this.selectedExercise.Name, this.session.patient.attributes.PatientID, this.session.patient.attributes.ClinicID, new Date().toString('MMM dd hh:mm tt'))
+    //     this.session.SubmitFeedback(this.patient.access_token, this.patient.AccountType, data.message, this.selectedExercise.Name, this.session.patient.attributes.PatientID, this.session.patient.attributes.ClinicID, new Date().toString('MMM dd hh:mm tt'))
         
-      }
-    });
-    feedbackModal.present();
+    //   }
+    // });
+    // feedbackModal.present();
   }
 
   selectExercise(exercise) {
@@ -209,14 +210,7 @@ export class ExercisePage {
   toast.onDidDismiss(() => {
       clearInterval(intervalHandler);
       if(elapsedTime < duration ){
-          console.log("Toast button clicked");
-          let feedbackModal = this.modalCtrl.create(FeedbackModal, {patient: this.patient});
-          feedbackModal.onDidDismiss(data => {
-            if(data){
-
-            }
-          });
-          feedbackModal.present();
+        this.navCtrl.push(Chat);
       }
     });
 

@@ -8,7 +8,7 @@ import { ExerciseService } from '../../services/exerciseService';
 import { SettingsPage } from '../settings/settings'
 import { ExercisePage } from '../exercise/exercise'
 import { LogModal } from '../logModal/logModal'
-import { FeedbackModal } from '../feedbackModal/feedbackModal'
+import { Chat } from '../chat/chat'
 import { AnalyticsPage } from '../analytics/analytics' 
 import { ReviewModal } from '../reviewModal/reviewModal'
 import 'datejs'
@@ -151,14 +151,7 @@ export class HomePage {
   }
 
   presentMessageModal() {
-   let feedbackModal = this.modalCtrl.create(FeedbackModal, {patient: this.patient});
-   feedbackModal.onDidDismiss(data => {
-     this.streak = 0;
-     if(data){
-
-    }
-   });
-   feedbackModal.present();
+    this.navCtrl.push(Chat);
   }
 
   presentLogModal() {

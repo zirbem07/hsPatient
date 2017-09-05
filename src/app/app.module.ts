@@ -16,7 +16,7 @@ import { TimerComponent } from '../pages/timer/timer';
 import { SetPinPage } from '../pages/setPin/setPin';
 import { EnterAccessCodePage } from '../pages/enterAccessCode/enterAccessCode';
 import { PasswordLoginPage } from '../pages/passwordLogin/passwordLogin';
-import { FeedbackModal } from '../pages/feedbackModal/feedbackModal';
+import { Chat } from '../pages/chat/chat';
 import { ReviewModal } from '../pages/reviewModal/reviewModal';
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { SessionService } from '../services/sessionService';
@@ -58,7 +58,7 @@ const cloudSettings: CloudSettings = {
     SetPinPage,
     EnterAccessCodePage,
     PasswordLoginPage,
-    FeedbackModal,
+    Chat,
     ReviewModal
   ],
   imports: [
@@ -83,7 +83,7 @@ const cloudSettings: CloudSettings = {
     SetPinPage,
     EnterAccessCodePage,
     PasswordLoginPage,
-    FeedbackModal,
+    Chat,
     ReviewModal
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, SessionService]
