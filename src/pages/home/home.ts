@@ -26,6 +26,7 @@ export class HomePage {
   today: any;
   lastCompleted: any;
   streak: any;
+  unseenMessages: any;
   logCompleted: boolean;
   themeColor: any;
   reviewed: any;
@@ -36,7 +37,7 @@ export class HomePage {
     this.nextApt =  window.localStorage.getItem("nextApt") || "Not Set"
     this.themeColor = window.localStorage.getItem("clinicID") || "primary";
     this.patient = this.session.patient; 
-    this.streak = this.patient.attributes.MessagesForPatient || 0;
+    this.unseenMessages = this.patient.attributes.MessagesForPatient || 0;
 
     this.today = this.DateJs.today().toString('M-dd-yyyy');
     this.lastCompleted = "";

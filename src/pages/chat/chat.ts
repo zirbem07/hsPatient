@@ -79,10 +79,10 @@ export class Chat {
         let newMsg: ChatMessage = {
             From: 'patient',
             Timestamp: new Date().toString('MMM dd hh:mm tt'),
-            PatientID: 'test',
+            PatientID: this.patient.attributes.PatientID,
             Title: '',
             Message: this.editorMsg,
-            ClinicID: '1'
+            ClinicID: this.patient.attributes.ClinicID
         };
 
         this.pushNewMsg(newMsg);
