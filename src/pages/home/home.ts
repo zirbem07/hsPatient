@@ -8,7 +8,7 @@ import { ExerciseService } from '../../services/exerciseService';
 import { SettingsPage } from '../settings/settings'
 import { ExercisePage } from '../exercise/exercise'
 import { LogModal } from '../logModal/logModal'
-import { FeedbackModal } from '../feedbackModal/feedbackModal'
+import { Chat } from '../chat/chat'
 import { AnalyticsPage } from '../analytics/analytics' 
 import { ReviewModal } from '../reviewModal/reviewModal'
 import 'datejs'
@@ -26,6 +26,7 @@ export class HomePage {
   today: any;
   lastCompleted: any;
   streak: any;
+  unseenMessages: any;
   logCompleted: boolean;
   themeColor: any;
   reviewed: any;
@@ -36,7 +37,7 @@ export class HomePage {
     this.nextApt =  window.localStorage.getItem("nextApt") || "Not Set"
     this.themeColor = window.localStorage.getItem("clinicID") || "primary";
     this.patient = this.session.patient; 
-    this.streak = this.patient.attributes.MessagesForPatient || 0;
+    this.unseenMessages = this.patient.attributes.MessagesForPatient || 0;
 
     this.today = this.DateJs.today().toString('M-dd-yyyy');
     this.lastCompleted = "";
@@ -151,14 +152,7 @@ export class HomePage {
   }
 
   presentMessageModal() {
-   let feedbackModal = this.modalCtrl.create(FeedbackModal, {patient: this.patient});
-   feedbackModal.onDidDismiss(data => {
-     this.streak = 0;
-     if(data){
-
-    }
-   });
-   feedbackModal.present();
+    this.navCtrl.push(Chat);
   }
 
   presentLogModal() {

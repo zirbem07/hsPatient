@@ -77,7 +77,6 @@ export class TimerComponent {
         var hours = Math.floor(sec_num / 3600);
         var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
         var seconds = sec_num - (hours * 3600) - (minutes * 60);
-        var hoursString = '';
         var minutesString = '';
         var secondsString = '';
         // hoursString = (hours < 10) ? "0" + hours : hours.toString();

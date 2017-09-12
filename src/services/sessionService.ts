@@ -346,7 +346,7 @@ export class SessionService {
         if(deviceToken){
             const headers = new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3MDVmYjk4YS1jYzcxLTQ2ZGUtOTI4Ny0yMzAxNmUwOWY5MDYifQ.kNZOzKdwhcn1LQX3I6HympQWCxYwuxctI0SGVTVJ3WA'
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3MDVmYjk4YS1jYzcxLTQ2ZGUtOTI4Ny0yMzAxNmUwOWY5MDYifQ.kNZOzKdwhcn1LQX3I6HympQWCxYwuxctI0SGVTVJ3WA'
                 })
 
 
