@@ -15,7 +15,8 @@ export class ExerciseService {
     constructor(public http: Http){ }
 
     getAssignedExercises(token: string, accountType: string, userID: string): Promise<any> {
-       
+        console.log("called");
+       console.log(userID);
         const headers = new Headers({
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Basic ' + btoa(token + ':')
@@ -41,9 +42,12 @@ export class ExerciseService {
             .post(url, this.formatData({search_option: btoa(queryParams)}), {headers: headers})
             .toPromise()
             .then(res => {
+                console.log(res);
                 for (let item of res.json().data.documents) {
                     var exercise = JSON.parse(atob(item.document));
                     exercise.document_id = item.document_id;
+                    console.log("in resolve");
+                    console.log(exercise);
                     this.exercises.push(exercise); 
                 }
             });

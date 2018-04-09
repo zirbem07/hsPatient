@@ -75,7 +75,7 @@ export class HomePage {
         this.logCompleted = false;
         this.session.updatePatientLog(this.patient.access_token, this.patient.AccountType, this.patient.attributes.PatientLogID)
       }
-
+      console.log(this.session.patient.patientLog[this.today]);
       var today = this.session.patient.patientLog[this.today]
       this.logCompleted = this.session.patient.patientLog[this.today].logCompleted || false;
       this.remainingExercise = (today.assigned - today.completed)
@@ -111,6 +111,7 @@ export class HomePage {
     this.push.register().then((t: PushToken) => {
         return this.push.saveToken(t, 'ignore_user');
       }).then((t: PushToken) => {
+        console.log(t);
         if(t.token){
           this.session.saveDeviceToken(this.session.patient.access_token, this.session.patient.AccountType, this.session.patient.attributes.document_id, t.token)
         } 
@@ -142,8 +143,11 @@ export class HomePage {
 
   getAssignedExercises() {
     if(!this.exercise.exercises[0]){
+      
+      alert("called");
       this.exercise.getAssignedExercises(this.patient.access_token, this.patient.AccountType, this.patient.user_id)
       .then(exercises => {
+        console.log(this.exercise.exercises)
         this.navCtrl.push(ExercisePage);
       })
     } else {

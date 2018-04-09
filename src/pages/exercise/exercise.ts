@@ -96,9 +96,13 @@ export class ExercisePage {
     });
   }
 
+  getBase64(file) {
+    
+ }
+
   getBlobImgs(){
     for (let item of this.exercises) {
-      if(item.ImgBlobID) {
+      if(item.ImgBlobID || item.VideoBlobID) {
         this.exercise.getBlobImg(this.patient.access_token, this.patient.AccountType, item.ImgBlobID)
         .then(imgData => {
           item.Img = imgData._body;
@@ -106,6 +110,7 @@ export class ExercisePage {
 
         this.exercise.getBlobVideo(this.patient.access_token, this.patient.AccountType, item.VideoBlobID)
         .then(vidData => {
+
           item.Video = vidData._body;
         })
       }   
