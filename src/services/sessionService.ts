@@ -343,30 +343,33 @@ export class SessionService {
     }
 
     SendPush(deviceToken){
-        if(deviceToken){
-            const headers = new Headers({
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3MDVmYjk4YS1jYzcxLTQ2ZGUtOTI4Ny0yMzAxNmUwOWY5MDYifQ.kNZOzKdwhcn1LQX3I6HympQWCxYwuxctI0SGVTVJ3WA'
-                })
-
-
-            var message = "A patient has sent you a message";
-            var tok = [deviceToken];
-            var profile = 'push';
-
-            return this.http
-            .post('https://api.ionic.io/push/notifications', 
-                {
-                    "tokens": tok,
-                    "profile": profile, 
-                    "notification": {
-                        "message": message
-                    }
-                },
-                {headers: headers})
-            .toPromise()
+                //deviceToken = "dLZIiU2kykM:APA91bEFVvMfOHjaQDRn-Hghm9SGC9sqELT97oxEUGsXfJOYeYRlnaC9e1Kb2NZOtdUDBTnMZMmosaEoJl_bz0Jq2huMZqy8USWbW2cTm8z38Zq3gdTueDKC5npzCgE_7z9LB6ConnH6";
+                if(deviceToken){
+                    const headers = new Headers({
+                            'Content-Type': 'application/json',
+                            'Authorization': 'key=AAAACBgJucY:APA91bEuZIrz85fyGnvErsKYjskhrdpODX93L7v0BnOdB-bJ5R7VM7n-1h7ynTxGMtgc42EDcVq8KLgdmB1GnP_6Mo8L-A8_1QjUcOF3luNC1Ulwmc-nTWYIApT80rCiLI-hmTuV16cj'
+                        })
+        
+                    var message = "A patient has sent you a message";
+                    var tok = deviceToken;
+                    var profile = 'push';
+        
+                    return this.http
+                     .post('https://fcm.googleapis.com/fcm/send', 
+                {
+                    "to": tok,
+                    "priority": "high", 
+                    "notification": {
+                        "body": "A Patient has sent you a message",
+                        'title': 'New Message',
+                        'icon': "myicon",
+                        'sound': "mySound"
+                    }
+                },
+                {headers: headers})
+            .toPromise()
         }
-    }
+            }
 
     private handleError(error){
         alert("Error: incorrect username or password");            

@@ -26,13 +26,14 @@ export class Chat {
 
       this.patient = this.session.patient;
       console.log(session)
-      this.getMsg();
+      
       this.markMessagesRead();
       this.sentPush = false;
 
     }
 
     ionViewDidLoad() {
+      this.msgList = [];
       this.scrollToBottom();
     }
 
@@ -41,6 +42,9 @@ export class Chat {
     }
 
     ionViewDidEnter() {
+        this.msgList.length = 0;
+        this.session.messages.length = 0;
+        if(this.msgList.length == 0){this.getMsg();}
         
     }
 
@@ -54,9 +58,10 @@ export class Chat {
     }
 
     getMsg() {
-      console.log(this.session.messages);
+      
       this.session.getMessages(this.patient.access_token, this.patient.AccountType, this.patient.user_id)
       .then(res => {
+        this.msgList = [];
         this.msgList = this.session.messages;
         this.scrollToBottom();
       })
@@ -102,7 +107,7 @@ export class Chat {
         this.editorMsg = '';
 
         if(this.sentPush == false){
-          this.session.SendPush(this.patient.attributes.TherapistDeviceToken);
+          console.log(this.session.SendPush(this.patient.attributes.TherapistDeviceToken));
           this.sentPush = true;
         }
       }
