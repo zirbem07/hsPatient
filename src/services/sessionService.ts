@@ -369,7 +369,16 @@ export class SessionService {
                 {headers: headers})
             .toPromise()
         }
-            }
+    }
+
+    recordTouchpoint(){
+        this.http
+            .post("https://healthconnection.io/testAPI/web/index.php/api/v1/touchpoint", {PatientID: this.patient.user_id, ClinicID: this.patient.attributes.ClinicID})
+            .toPromise()
+            .then(data => {
+
+            })
+    }
 
     private handleError(error){
         alert("Error: incorrect username or password");            

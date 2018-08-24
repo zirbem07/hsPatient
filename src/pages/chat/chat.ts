@@ -75,6 +75,10 @@ export class Chat {
       else{
         messageCount = 0;
       }
+      if(messageCount > 0){
+        //add touchpoint
+        this.session.recordTouchpoint();
+      }
         this.session.updateMessages(this.patient, this.patient.access_token, this.patient.AccountType, this.patient.attributes.document_id, messageCount);
     }
 
@@ -107,6 +111,9 @@ export class Chat {
         this.editorMsg = '';
 
         if(this.sentPush == false){
+          //add touchpoint
+          this.session.recordTouchpoint();
+
           console.log(this.session.SendPush(this.patient.attributes.TherapistDeviceToken));
           this.sentPush = true;
         }

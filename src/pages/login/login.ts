@@ -53,6 +53,10 @@ export class LoginPage {
                 this.session.getUserAttributes(patient.access_token, patient.AccountType, patient.user_id)
                 .then(attr =>  {
                   this.session.checkBranding(this.session.patient.attributes.ClinicID)
+
+                  //add touchpoint
+                  this.session.recordTouchpoint();
+
                   this.navCtrl.setRoot(HomePage)
                                   
                 })

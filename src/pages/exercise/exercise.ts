@@ -137,6 +137,9 @@ export class ExercisePage {
       this.presentToast();
     }
 
+    //add touchpoint
+    this.session.recordTouchpoint();
+    
     this.session.updatePatientLog(this.patient.access_token, this.patient.AccountType, this.patient.attributes.PatientLogID)
     this.checkCompleted();
   }
