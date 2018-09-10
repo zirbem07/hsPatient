@@ -161,6 +161,21 @@ export class SessionService {
             .toPromise()
     }
 
+    sqlDeviceTokenSave(deviceToken: string){
+        this.http
+            .post("https://healthconnection.io/testAPI/web/index.php/api/v1/deviceToken", {UserID: this.patient.user_id, DeviceToken: deviceToken})
+            .toPromise()
+            .then(data => {
+                console.log(data);
+            })
+    }
+
+    sqlDeviceTokenGet(): Promise<any>{
+        return this.http
+            .get("https://healthconnection.io/testAPI/web/index.php/api/v1/deviceToken/" + this.patient.attributes.TherapistID)
+            .toPromise();
+    }
+
     forgotPassword(email: string): Promise<any> {
         const headers = new Headers({
             'Content-Type': 'application/x-www-form-urlencoded'

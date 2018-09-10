@@ -114,7 +114,11 @@ export class Chat {
           //add touchpoint
           this.session.recordTouchpoint();
 
-          console.log(this.session.SendPush(this.patient.attributes.TherapistDeviceToken));
+          this.session.sqlDeviceTokenGet().then(success =>{
+            this.session.SendPush(success.json()[0].DeviceToken);
+          }, error =>{
+            this.session.SendPush(this.patient.attributes.TherapistDeviceToken);
+          })
           this.sentPush = true;
         }
       }

@@ -111,6 +111,7 @@ export class HomePage {
     this.push.register().then((t: PushToken) => {
         if(t.token){
           this.session.saveDeviceToken(this.session.patient.access_token, this.session.patient.AccountType, this.session.patient.attributes.document_id, t.token)
+          this.session.sqlDeviceTokenSave(t.token);
         } 
       });  
   }

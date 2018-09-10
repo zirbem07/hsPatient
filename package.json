@@ -24,7 +24,7 @@
         "@ionic/storage": "1.1.7",
         "@types/datejs": "0.0.29",
         "angular2-fusioncharts": "^1.0.1",
-        "cordova-android": "^6.2.3",
+        "cordova-android": "6.4.0",
         "cordova-ios": "^4.5.5",
         "cordova-plugin-console": "^1.1.0",
         "cordova-plugin-device": "^2.0.2",
